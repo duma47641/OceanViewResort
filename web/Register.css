@@ -1,0 +1,230 @@
+.container {
+  margin-top: 70px;   /* navbar height */
+  margin-left: 60px;  /* sidebar width */
+  display: flex;
+  justify-content: center;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 20px;
+  align-items: center;
+}
+
+.featured-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.featured-title-image {
+  width: 300px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.featured-desc {
+  max-width: 600px;
+  line-height: 1.6;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* ================== REGISTER FORM CONTAINER ================== */
+.register-form-container {
+  background: #141414;
+  padding: 40px 35px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+@media (max-width: 900px) {
+  .register-form-container {
+    margin: 20 auto;
+    width: 90%;
+  }
+}
+
+/* ================== FORM ================== */
+#registration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+#registration h1 {
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 24px;
+  letter-spacing: 1px;
+}
+
+/* ================== INPUT BOX ================== */
+.input-box {
+  position: relative;
+  width: 100%;
+  margin-bottom: 22px;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 14px 14px;
+  background: transparent;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.input-box textarea {
+  width: 100%;
+  padding: 14px 14px;
+  background: transparent;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  box-sizing: border-box;
+  min-height: 120px;
+}
+
+.input-box label {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  color: #aaa;
+  font-size: 15px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: 0.3s ease;
+  background: #141414;
+  padding: 0 6px;
+}
+
+/* ===== Always-float labels (file + date only) ===== */
+.input-box label.on-top-labels {
+  top: -12px;
+  transform: none;
+  font-size: 12px;
+  color: #e50914;
+}
+
+/* FLOAT EFFECT */
+.input-box input:focus + label,
+.input-box input:valid + label {
+  top: -6px;
+  font-size: 12px;
+  color: #e50914;
+}
+
+.input-box textarea:focus + label,
+.input-box textarea:valid + label {
+  top: -6px;
+  font-size: 12px;
+  color: #e50914;
+}
+
+/* ================== PASSWORD ICON ================== */
+.icons-container {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.toggle-password {
+  color: #aaa;
+}
+
+.toggle-password:hover {
+  color: #e50914;
+}
+
+/* ================== REGISTER BUTTON ================== */
+.register-button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: #e50914;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.register-button:hover {
+  background: #ff1e27;
+}
+
+/* ================== LOGIN LINK ================== */
+.signIn-link {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.signIn-link a {
+  color: #e50914;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.signIn-link a:hover {
+  text-decoration: underline;
+}
+
+/* ================== RESPONSIVE ================== */
+@media (max-width: 900px) {
+
+  .container {
+    margin-left: 0px;
+  }
+
+  .content-container {
+    margin-top: -40px;
+  }
+
+}
+
+.input-box select {
+  width: 100%;
+  padding: 14px 14px;
+  background: transparent;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.input-box option {
+  width: 100%;
+  padding: 14px 14px;
+  background: black;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.limit-label {
+    margin-top: 12px;
+    text-align: center;
+    color: #ff4d4d;
+    font-weight: 600;
+}
