@@ -1,4 +1,15 @@
 package com.oceanviewresort.DAO;
 
-public class RoomTypeDAO {
+import com.oceanviewresort.Models.RoomType;
+import java.util.List;
+
+public interface RoomTypeDAO {
+
+    boolean addRoomType(RoomType roomType);
+
+    List<RoomType> getAllRoomTypes();
+
+    RoomType getRoomTypeById(int id);
+
+    boolean deleteRoomType(int id);
 }
