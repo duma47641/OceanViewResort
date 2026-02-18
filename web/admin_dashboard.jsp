@@ -11,7 +11,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Home_Style.css">
-    <link rel="stylesheet" href="Register.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -208,7 +207,14 @@
                 <p class="featured-desc">Welcome to Cineplex, your ultimate destination for all things film! Immerse yourself in a cinematic journey with our extensive collection of reviews, trailers, and exclusive content. From classic masterpieces to the latest blockbusters, Cineplex is your go-to hub for everything movie-related. Join our passionate community of cinephiles and stay tuned for the latest updates on the silver screen!</p>
             </div>
 
+            <h1 class="home-heading">ADMIN DASHBOARD</h1>
 
+            <div class="button-container-home">
+                <button class="buttons-home">Add Room Type<a href="add_room_type.jsp"></a></button>
+                <button class="buttons-home">Add Room</button>
+                <button class="buttons-home">Create Staff Account</button>
+                <button class="buttons-home">View Income Report</button>
+            </div>
 
         </div>
     </div>
