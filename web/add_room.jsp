@@ -182,7 +182,7 @@
                 <p class="featured-desc">Welcome to Ocean View Resort, your perfect escape to relaxation and luxury by the sea! Experience tranquility like never before with our beautifully designed rooms, breathtaking ocean views, and world-class hospitality. Whether you are seeking a peaceful getaway or a memorable vacation, Ocean View Resort offers the ideal setting to unwind, refresh, and indulge in comfort.</p>
             </div>
             <div class="register-form-container">
-                <form id="registration" method="post" action="addRoomType" onsubmit="return formValidation()">
+                <form id="registration" method="post" action="addRoom" onsubmit="return formValidation()" enctype="multipart/form-data">
                     <h1>ADD ROOMS</h1>
                     <%@ page import="java.util.List" %>
                     <%@ page import="com.oceanviewresort.Models.RoomType" %>
@@ -204,8 +204,8 @@
                         <label class="on-top-labels" for="RoomType">Room Type</label>
                     </div>
                     <div class="input-box">
-                        <input type="text" id="RoomImageID" name="RoomImageName" required>
-                        <label>Room Image</label>
+                        <input type="file" id="RoomImageID" name="RoomImageName" required>
+                        <label class="on-top-labels">Room Image</label>
                     </div>
                     <div class="input-box">
                         <input type="text" id="RoomNameID" name="RoomNameName" required>
