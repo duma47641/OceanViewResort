@@ -183,7 +183,7 @@
             </div>
             <div class="register-form-container">
                 <form id="registration" method="post" action="staffMemberLogin" onsubmit="return formValidation()">
-                    <h1>ADMIN LOGIN</h1>
+                    <h1>STAFF MEMBER LOGIN</h1>
                     <div class="input-box">
                         <input type="Email" id="Email" name="Email" required>
                         <label>Email</label>
