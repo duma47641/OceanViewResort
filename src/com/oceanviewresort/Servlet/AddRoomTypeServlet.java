@@ -28,8 +28,20 @@ public class AddRoomTypeServlet extends HttpServlet {
             out.println("</script>");
             return;
         }
+        
+        name = name.trim();
 
         RoomTypeDAO dao = DAOFactory.getRoomTypeDAO();
+
+        // ✅ UNIQUE CHECK
+        if (dao.isRoomTypeExists(name)) {
+
+            out.println("<script>");
+            out.println("alert('Room type already exists!');");
+            out.println("location='add_room_type.jsp';");
+            out.println("</script>");
+            return;
+        }
 
         boolean success = dao.addRoomType(new RoomType(name));
 

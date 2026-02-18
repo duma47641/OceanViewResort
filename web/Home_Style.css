@@ -255,6 +255,18 @@ menu {
   margin-right: 20px;
 }
 
+.button-container-home-links {
+  background-color: #ff1e27;
+  font-size: 20px;
+  border-radius: 15px;
+  color: aliceblue;
+  font-weight: 600;
+  border: none;
+  margin-left: 5px;
+  margin-right: 5px;
+  text-align: center
+}
+
 .buttons-home {
   background-color: #ff1e27;
   padding: 15px;
@@ -263,8 +275,6 @@ menu {
   color: aliceblue;
   font-weight: 600;
   border: none;
-  margin-left: 5px;
-  margin-right: 5px;
 }
 
 .buttons-home:hover {

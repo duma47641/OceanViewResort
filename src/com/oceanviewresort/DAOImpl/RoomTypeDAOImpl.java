@@ -11,6 +11,29 @@ import java.util.List;
 public class RoomTypeDAOImpl implements RoomTypeDAO {
 
     @Override
+    public boolean isRoomTypeExists(String name) {
+
+        boolean exists = false;
+
+        try (Connection con = DBConnection.getInstance().getConnection();
+             PreparedStatement ps = con.prepareStatement(
+                     "SELECT 1 FROM room_types WHERE LOWER(Room_Type_Name) = LOWER(?)")) {
+
+            ps.setString(1, name);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                exists = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return exists;
+    }
+
+    @Override
     public boolean addRoomType(RoomType roomType) {
 
         boolean status = false;

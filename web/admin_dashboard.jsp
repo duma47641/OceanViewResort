@@ -140,22 +140,9 @@
                     </ul>
                 </li>
 
-                <li class="menu-list-item">
-                    <menu class="mobile-dropdown">Procedures <i style="margin-left: 5px;" class="fas fa-caret-down"></i></menu>
-                    <ul class="submenu">
-                        <li><a href="Movie_Showing_Times.html">Show Times</a></li>
-                        <li><a href="Special_Events.html">Special Events</a></li>
-                        <li><a href="Promotions.html">Promotions</a></li>
-                    </ul>
-                </li>
 
-                <li class="menu-list-item">
-                    <menu class="mobile-dropdown">About Us <i style="margin-left: 5px;" class="fas fa-caret-down"></i></menu>
-                    <ul class="submenu">
-                        <li><a href="Contact_Us.html">Contact Us</a></li>
-                        <li><a href="Theatre_Details.html">Theatre Details</a></li>
-                    </ul>
-                </li>
+
+                <li class="menu-list-item"><menu><a class="link-stylings" href="about_us.jsp">About Us</a></menu></li>
 
                 <li class="menu-list-item-last"><menu><a class="link-stylings" href="Register.php">Parking</a></menu></li>
 
@@ -204,16 +191,16 @@
         <div class="content-container">
             <div class="featured-content">
                 <img class="featured-title-image" src="img/Ocean_View_Resort_Logo.png" alt="">
-                <p class="featured-desc">Welcome to Cineplex, your ultimate destination for all things film! Immerse yourself in a cinematic journey with our extensive collection of reviews, trailers, and exclusive content. From classic masterpieces to the latest blockbusters, Cineplex is your go-to hub for everything movie-related. Join our passionate community of cinephiles and stay tuned for the latest updates on the silver screen!</p>
+                <p class="featured-desc">Welcome to Ocean View Resort, your perfect escape to relaxation and luxury by the sea! Experience tranquility like never before with our beautifully designed rooms, breathtaking ocean views, and world-class hospitality. Whether you're seeking a peaceful getaway or a memorable vacation, Ocean View Resort offers the ideal setting to unwind, refresh, and indulge in comfort.</p>
             </div>
 
             <h1 class="home-heading">ADMIN DASHBOARD</h1>
 
             <div class="button-container-home">
-                <button class="buttons-home">Add Room Type<a href="add_room_type.jsp"></a></button>
-                <button class="buttons-home">Add Room</button>
-                <button class="buttons-home">Create Staff Account</button>
-                <button class="buttons-home">View Income Report</button>
+                <a class="button-container-home-links" href="add_room_type.jsp"><button class="buttons-home">Add Room Type</button></a>
+                <a class="button-container-home-links" href="add_room_type.jsp"><button class="buttons-home">Add Room</button></a>
+                <a class="button-container-home-links" href="add_room_type.jsp"><button class="buttons-home">Create Staff Account</button></a>
+                <a class="button-container-home-links" href="add_room_type.jsp"><button class="buttons-home">View Income Report</button></a>
             </div>
 
         </div>
@@ -222,8 +209,8 @@
     <div class="footer">
         <div class="footer-container">
             <div class="footer-brand">
-                <h2>CINEPLEX THEATRES</h2>
-                <p>Your ultimate destination for Rooms, showtimes, and cinematic experiences.</p>
+                <h2>OCEAN VIEW RESORT</h2>
+                <p>Your ultimate destination for premium rooms, serene surroundings, and unforgettable resort experiences.</p>
             </div>
             <div class="footer-links">
                 <h4>Company</h4>
@@ -238,7 +225,7 @@
                 <ul>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Terms of Use</a></li>
-                    <li><a href="#">Disclaimer</a></li>
+                    <li><a href="#">Home</a></li>
                 </ul>
             </div>
             <div class="footer-social">

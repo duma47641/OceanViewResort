@@ -5,6 +5,7 @@ import java.util.List;
 
 public interface RoomTypeDAO {
 
+    boolean isRoomTypeExists(String name);
     boolean addRoomType(RoomType roomType);
 
     List<RoomType> getAllRoomTypes();
