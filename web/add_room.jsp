@@ -11,10 +11,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Home_Style.css">
+    <link rel="stylesheet" href="Register.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <title>Register</title>
+    <title>Add Room</title>
 </head>
 
 <script>
@@ -180,16 +181,47 @@
                 <img class="featured-title-image" src="img/Ocean_View_Resort_Logo.png" alt="">
                 <p class="featured-desc">Welcome to Ocean View Resort, your perfect escape to relaxation and luxury by the sea! Experience tranquility like never before with our beautifully designed rooms, breathtaking ocean views, and world-class hospitality. Whether you are seeking a peaceful getaway or a memorable vacation, Ocean View Resort offers the ideal setting to unwind, refresh, and indulge in comfort.</p>
             </div>
-
-            <h1 class="home-heading">ADMIN DASHBOARD</h1>
-
-            <div class="button-container-home">
-                <a class="button-container-home-links" href="add_room_type.jsp"><button class="buttons-home">Add Room Type</button></a>
-                <a class="button-container-home-links" href="add_room.jsp"><button class="buttons-home">Add Room</button></a>
-                <a class="button-container-home-links" href="add_room_type.jsp"><button class="buttons-home">Create Staff Account</button></a>
-                <a class="button-container-home-links" href="add_room_type.jsp"><button class="buttons-home">View Income Report</button></a>
+            <div class="register-form-container">
+                <form id="registration" method="post" action="addRoomType" onsubmit="return formValidation()">
+                    <h1>ADD ROOMS</h1>
+                    <%@ page import="java.util.List" %>
+                    <%@ page import="com.oceanviewresort.Models.RoomType" %>
+                    <div class="input-box">
+                        <select id="RoomType" name="RoomTypeID" required>
+                            <%
+                                if(request.getAttribute("roomTypes") != null){
+                                    for(com.oceanviewresort.Models.RoomType room :
+                                        (java.util.List<com.oceanviewresort.Models.RoomType>) request.getAttribute("roomTypes")){
+                            %>
+                                <option value="<%= room.getId() %>">
+                                    <%= room.getName() %>
+                                </option>
+                            <%
+                                    }
+                                }
+                            %>
+                        </select>
+                        <label class="on-top-labels" for="RoomType">Room Type</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="text" id="RoomImageID" name="RoomImageName" required>
+                        <label>Room Image</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="text" id="RoomNameID" name="RoomNameName" required>
+                        <label>Room Name</label>
+                    </div>
+                    <div class="input-box">
+                        <textarea type="text" id="RoomDetailsID" name="RoomDetailsName" required></textarea>
+                        <label>Room Details</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="number" id="RoomPriceID" name="RoomPriceName" required>
+                        <label>Room Price</label>
+                    </div>
+                    <button class="register-button" style="font-size:24px" type="submit" name="submit">Add Room</button>
+                </form>
             </div>
-
         </div>
     </div>
 

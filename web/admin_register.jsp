@@ -111,31 +111,18 @@
                 <li class="menu-list-item"><menu><a class="link-stylings" href="Rooms.jsp">Rooms</a></menu></li>
                 <li class="menu-list-item"><menu class="mobile-dropdown">Room Types <i style="margin-left: 5px;" class="fas fa-caret-down"></i></menu>
                     <ul class="submenu">
+                        <%@ page import="java.util.List" %>
+                        <%@ page import="com.oceanviewresort.Models.RoomType" %>
                         <%
-                            Connection conn = null;
-                            PreparedStatement ps = null;
-                            ResultSet rs = null;
-                            try {
-                                Class.forName("com.mysql.jdbc.Driver");
-                                conn = DriverManager.getConnection(
-                                "jdbc:mysql://localhost:3306/ocean_view_resort?useSSL=false&serverTimezone=UTC",
-                                "root","");
-                                ps = conn.prepareStatement("SELECT DISTINCT Room_Type_Name FROM room_types ORDER BY Room_Type_Name");
-                                rs = ps.executeQuery();
-                                while(rs.next()) {
-                                    String lang = rs.getString("Room_Type_Name");
-                                    %>
-                                    <li>
-                                        <a class="link-styling" href="#"><%= lang %></a>
-                                    </li>
-                                    <%
+                            List<RoomType> roomTypes = (List<RoomType>) request.getAttribute("roomTypes");
+                            if(roomTypes != null){
+                                for(RoomType room : roomTypes){
+                        %>
+                                <li>
+                                    <a class="link-styling" href="#"><%= room.getName() %></a>
+                                </li>
+                        <%
                                 }
-                            } catch(Exception e) {
-                                out.println(e);
-                            } finally {
-                                try{ if(rs!=null) rs.close(); }catch(Exception e){}
-                                try{ if(ps!=null) ps.close(); }catch(Exception e){}
-                                try{ if(conn!=null) conn.close(); }catch(Exception e){}
                             }
                         %>
                     </ul>
@@ -192,7 +179,7 @@
         <div class="content-container">
             <div class="featured-content">
                 <img class="featured-title-image" src="img/Ocean_View_Resort_Logo.png" alt="">
-                <p class="featured-desc">Welcome to Ocean View Resort, your perfect escape to relaxation and luxury by the sea! Experience tranquility like never before with our beautifully designed rooms, breathtaking ocean views, and world-class hospitality. Whether you're seeking a peaceful getaway or a memorable vacation, Ocean View Resort offers the ideal setting to unwind, refresh, and indulge in comfort.</p>
+                <p class="featured-desc">Welcome to Ocean View Resort, your perfect escape to relaxation and luxury by the sea! Experience tranquility like never before with our beautifully designed rooms, breathtaking ocean views, and world-class hospitality. Whether you are seeking a peaceful getaway or a memorable vacation, Ocean View Resort offers the ideal setting to unwind, refresh, and indulge in comfort.</p>
             </div>
             <div class="register-form-container">
                 <form id="registration" method="post" action="adminRegister" onsubmit="return formValidation()">
