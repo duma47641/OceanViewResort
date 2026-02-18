@@ -1,6 +1,6 @@
 <%@ page import="java.sql.*" %>
 <%
-    com.oceanviewresort.Models.Admin admin = (com.oceanviewresort.Models.Admin) session.getAttribute("admin");
+    com.oceanviewresort.Models.StaffMember staffMember = (com.oceanviewresort.Models.StaffMember) session.getAttribute("staffMember");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -11,10 +11,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Home_Style.css">
+    <link rel="stylesheet" href="Register.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <title>Register</title>
+    <title>Login Staff Member</title>
 </head>
 
 <script>
@@ -133,11 +134,11 @@
 
                 <li class="menu-list-item-last"><menu><a class="link-stylings" href="Register.php">Parking</a></menu></li>
 
-                <% if(admin == null){ %>
+                <% if(staffMember == null){ %>
                     <li class="menu-list-item-last"><menu><a class="link-stylings" href="Parking_Area_View.html">Register</a></menu></li>
                     <li class="menu-list-item-last"><menu><a class="link-stylings" href="Login.php">Login</a></menu></li>
                 <% } else { %>
-                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutAdmin">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
+                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutStaffMember">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
                 <% } %>
 
                 <form action="Rooms_Searching.php" method="get" class="menu-list-item-search-bar-main">
@@ -151,7 +152,7 @@
 
     <div class="sidebar">
 
-        <% if(admin == null){ %>
+        <% if(staffMember == null){ %>
 
             <div class="menu-item">
                 <a href="Register.php"><i class="left-menu-icon fas fa-users"></i></a>
@@ -166,7 +167,7 @@
         <% } else { %>
 
             <div class="menu-item">
-                <a href="logoutAdmin"><i class="left-menu-icon fas fa-sign-out-alt"></i></a>
+                <a href="logoutStaffMember"><i class="left-menu-icon fas fa-sign-out-alt"></i></a>
                 <span class="submenusidebar">Logout</span>
             </div>
 
@@ -180,16 +181,25 @@
                 <img class="featured-title-image" src="img/Ocean_View_Resort_Logo.png" alt="">
                 <p class="featured-desc">Welcome to Ocean View Resort, your perfect escape to relaxation and luxury by the sea! Experience tranquility like never before with our beautifully designed rooms, breathtaking ocean views, and world-class hospitality. Whether you are seeking a peaceful getaway or a memorable vacation, Ocean View Resort offers the ideal setting to unwind, refresh, and indulge in comfort.</p>
             </div>
+            <div class="register-form-container">
+                <form id="registration" method="post" action="staffMemberLogin" onsubmit="return formValidation()">
+                    <h1>ADMIN LOGIN</h1>
+                    <div class="input-box">
+                        <input type="Email" id="Email" name="Email" required>
+                        <label>Email</label>
+                        <div class="icons-container"><i class='bx bxs-envelope'></i></div>
+                    </div>
+                    <div class="input-box">
+                        <div class="icons-container">
+                            <i class="bx bx-show toggle-password" onclick="togglePasswordVisibility('password', this)"></i>
+                        </div>
+                        <input type="password" name="Password" id="password" required>
+                        <label>Password</label>
+                    </div>
+                    <button class="register-button" style="font-size:24px" type="submit" name="submit">Login Staff Member</button>
 
-            <h1 class="home-heading">ADMIN DASHBOARD</h1>
-
-            <div class="button-container-home">
-                <a class="button-container-home-links" href="add_room_type.jsp"><button class="buttons-home">Add Room Type</button></a>
-                <a class="button-container-home-links" href="add_room.jsp"><button class="buttons-home">Add Room</button></a>
-                <a class="button-container-home-links" href="staff_member_register.jsp"><button class="buttons-home">Create Staff Account</button></a>
-                <a class="button-container-home-links" href="add_room_type.jsp"><button class="buttons-home">View Income Report</button></a>
+                </form>
             </div>
-
         </div>
     </div>
 

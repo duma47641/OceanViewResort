@@ -1,14 +1,14 @@
 package com.oceanviewresort.Models;
 
-public class Admin {
+public class StaffMember {
     private int id;
     private String fullName;
     private String email;
     private String password;
 
-    public Admin() {}
+    public StaffMember() {}
 
-    public Admin(int id, String fullName, String email, String password) {
+    public StaffMember(int id, String fullName, String email, String password) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
