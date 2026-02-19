@@ -1,7 +1,4 @@
 <%@ page import="java.sql.*" %>
-<%
-    com.oceanviewresort.Models.StaffMember staffMember = (com.oceanviewresort.Models.StaffMember) session.getAttribute("staffMember");
-%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -15,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <title>Register Staff Member</title>
+    <title>Login</title>
 </head>
 
 <script>
@@ -134,13 +131,6 @@
 
                 <li class="menu-list-item-last"><menu><a class="link-stylings" href="Register.php">Parking</a></menu></li>
 
-                <% if(staffMember == null){ %>
-                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="Parking_Area_View.html">Register</a></menu></li>
-                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="Login.php">Login</a></menu></li>
-                <% } else { %>
-                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutStaffMember">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
-                <% } %>
-
                 <form action="Rooms_Searching.php" method="get" class="menu-list-item-search-bar-main">
                     <menu><input type="text" name="search" class="menu-list-item-search-bar" placeholder="Search"></menu>
                     <menu><button type="submit" class="search-menu-icon-button"><i class="search-menu-icon fas fa-search"></i></button></menu>
@@ -151,28 +141,14 @@
     </div>
 
     <div class="sidebar">
-
-        <% if(staffMember == null){ %>
-
-            <div class="menu-item">
-                <a href="Register.php"><i class="left-menu-icon fas fa-users"></i></a>
-                <span class="submenusidebar">Register</span>
-            </div>
-
-            <div class="menu-item">
-                <a href="Login.php"><i class="left-menu-icon fas fa-user"></i></a>
-                <span class="submenusidebar">Login</span>
-            </div>
-
-        <% } else { %>
-
-            <div class="menu-item">
-                <a href="logoutStaffMember"><i class="left-menu-icon fas fa-sign-out-alt"></i></a>
-                <span class="submenusidebar">Logout</span>
-            </div>
-
-        <% } %>
-
+        <div class="menu-item">
+            <a href="admin_common_login.jsp"><i class="left-menu-icon material-icons">&#xe8d3;</i></a>
+            <span class="submenusidebar">Admin Common Login</span>
+        </div>
+        <div class="menu-item">
+            <a href="staff_member_common_login.jsp"><i class="left-menu-icon fas fa-user"></i></a>
+            <span class="submenusidebar">Staff Member Common Login</span>
+        </div>
     </div>
 
     <div class="container">
@@ -182,34 +158,21 @@
                 <p class="featured-desc">Welcome to Ocean View Resort, your perfect escape to relaxation and luxury by the sea! Experience tranquility like never before with our beautifully designed rooms, breathtaking ocean views, and world-class hospitality. Whether you are seeking a peaceful getaway or a memorable vacation, Ocean View Resort offers the ideal setting to unwind, refresh, and indulge in comfort.</p>
             </div>
             <div class="register-form-container">
-                <form id="registration" method="post" action="staffMemberRegister" onsubmit="return formValidation()">
-                    <h1>STAFF MEMBER REGISTRATION</h1>
+                <form id="registration" method="post" onsubmit="return formValidation()">
+                    <h1>ADMIN COMMON LOGIN</h1>
                     <div class="input-box">
-                        <input style="padding: 14px 40px 14px 14px;" type="text" id="FullName" name="FullName" required>
-                        <label>Staff Member Full Name</label>
-                        <div class="icons-container"><i class='bx bxs-user'></i></div>
-                    </div>
-                    <div class="input-box">
-                        <input style="padding: 14px 40px 14px 14px;" type="Email" id="Email" name="Email" required>
-                        <label>Staff Member Email</label>
+                        <input style="padding: 14px 40px 14px 14px;" type="Email" id="EmailID" name="EmailName" required>
+                        <label>Email</label>
                         <div class="icons-container"><i class='bx bxs-envelope'></i></div>
                     </div>
                     <div class="input-box">
                         <div class="icons-container">
                             <i class="bx bx-show toggle-password" onclick="togglePasswordVisibility('password', this)"></i>
                         </div>
-                        <input style="padding: 14px 40px 14px 14px;" type="password" name="Password" id="password" required>
-                        <label>Staff Member Password</label>
+                        <input style="padding: 14px 40px 14px 14px;" type="password" name="PasswordName" id="password" required>
+                        <label>Password</label>
                     </div>
-                    <div class="input-box">
-                        <div class="icons-container">
-                            <i class="bx bx-show toggle-password" onclick="togglePasswordVisibility('confirm_Password', this)"></i>
-                        </div>
-                        <input style="padding: 14px 40px 14px 14px;" type="password" name="Confirm_Password" id="confirm_Password" required>
-                        <label>Staff Member Confirm Password</label>
-                    </div>
-                    <button class="register-button" style="font-size:24px" type="submit" name="submit">Register Staff Member</button>
-
+                    <button class="register-button" style="font-size:24px" type="submit" name="submit">Admin Common Login</button>
                 </form>
             </div>
         </div>
@@ -255,19 +218,17 @@
 
     <script>
         function formValidation() {
-        const name = document.getElementById("FullName").value;
+        const email = document.getElementById("EmailID").value;
         const password = document.getElementById("password").value;
-        const confirm = document.getElementById("confirm_Password").value;
-        const nameRegex = /^[A-Za-z ]+$/;
-        if (!nameRegex.test(name)) {
-            alert("Full name must contain letters only.");
+        if (email == "admincommonlogin@oceanviewresort.lk" && password == "12345") {
+            alert("Admin Common Login Successful.");
+            window.location='admin_login.jsp';
             return false;
         }
-        if (password !== confirm) {
-            alert("Passwords do not match!");
+        else {
+            alert("Admin Common Login Failed!");
             return false;
         }
-        return true;
     }
     </script>
 

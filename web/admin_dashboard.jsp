@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <%@ page import="java.sql.*" %>
 <%
     com.oceanviewresort.Models.Admin admin = (com.oceanviewresort.Models.Admin) session.getAttribute("admin");
@@ -188,6 +190,68 @@
                 <a class="button-container-home-links" href="add_room.jsp"><button class="buttons-home">Add Room</button></a>
                 <a class="button-container-home-links" href="staff_member_register.jsp"><button class="buttons-home">Create Staff Account</button></a>
                 <a class="button-container-home-links" href="add_room_type.jsp"><button class="buttons-home">View Income Report</button></a>
+            </div>
+
+            <div class="dashboard-content">
+
+                <div class="dashboard-grid">
+
+                    <div class="dashboard-card">
+                        <h3>🏷 Add Room Types</h3>
+                        <p>Create and organize room categories.</p>
+                        <a href="add_room_type.jsp">Manage Types</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>🏷 Edit Room Types</h3>
+                        <p>Edit and examine room categories.</p>
+                        <a href="add_room_type.jsp">Manage Types</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>🏷 View Room Types</h3>
+                        <p>View and search room categories.</p>
+                        <a href="add_room_type.jsp">Manage Types</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>🛏 Add Rooms</h3>
+                        <p>Add rooms with its details and prices.</p>
+                        <a href="add_room.jsp">Manage Rooms</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>🛏 Edit Rooms</h3>
+                        <p>Edit rooms with its details and prices.</p>
+                        <a href="add_room.jsp">Manage Rooms</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>🛏 View Rooms</h3>
+                        <p>View and Search rooms with its details and prices.</p>
+                        <a href="add_room.jsp">Manage Rooms</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>👤 Create Staff Accounts</h3>
+                        <p>Create staff login accounts and permissions.</p>
+                        <a href="staff.jsp">Manage Staff</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>👤 View Staff Accounts</h3>
+                        <p>View and Search staff login accounts and permissions.</p>
+                        <a href="staff.jsp">Manage Staff</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>❓ Help</h3>
+                        <p>View system usage instructions for employees.</p>
+                        <a href="help.jsp">Open Guide</a>
+                    </div>
+
+                </div>
+
             </div>
 
         </div>

@@ -185,12 +185,12 @@
                 <form id="registration" method="post" action="adminRegister" onsubmit="return formValidation()">
                     <h1>ADMIN REGISTRATION</h1>
                     <div class="input-box">
-                        <input type="text" id="FullName" name="FullName" required>
+                        <input style="padding: 14px 40px 14px 14px;" type="text" id="FullName" name="FullName" required>
                         <label>Full Name</label>
                         <div class="icons-container"><i class='bx bxs-user'></i></div>
                     </div>
                     <div class="input-box">
-                        <input type="Email" id="Email" name="Email" required>
+                        <input style="padding: 14px 40px 14px 14px;" type="Email" id="Email" name="Email" required>
                         <label>Email</label>
                         <div class="icons-container"><i class='bx bxs-envelope'></i></div>
                     </div>
@@ -198,14 +198,14 @@
                         <div class="icons-container">
                             <i class="bx bx-show toggle-password" onclick="togglePasswordVisibility('password', this)"></i>
                         </div>
-                        <input type="password" name="Password" id="password" required>
+                        <input style="padding: 14px 40px 14px 14px;" type="password" name="Password" id="password" required>
                         <label>Password</label>
                     </div>
                     <div class="input-box">
                         <div class="icons-container">
                             <i class="bx bx-show toggle-password" onclick="togglePasswordVisibility('confirm_Password', this)"></i>
                         </div>
-                        <input type="password" name="Confirm_Password" id="confirm_Password" required>
+                        <input style="padding: 14px 40px 14px 14px;" type="password" name="Confirm_Password" id="confirm_Password" required>
                         <label>Confirm Password</label>
                     </div>
                     <button class="register-button" style="font-size:24px" type="submit" name="submit">Register</button>

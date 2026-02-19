@@ -185,7 +185,7 @@
                 <form id="registration" method="post" action="adminLogin" onsubmit="return formValidation()">
                     <h1>ADMIN LOGIN</h1>
                     <div class="input-box">
-                        <input type="Email" id="Email" name="Email" required>
+                        <input style="padding: 14px 40px 14px 14px;" type="Email" id="Email" name="Email" required>
                         <label>Email</label>
                         <div class="icons-container"><i class='bx bxs-envelope'></i></div>
                     </div>
@@ -193,7 +193,7 @@
                         <div class="icons-container">
                             <i class="bx bx-show toggle-password" onclick="togglePasswordVisibility('password', this)"></i>
                         </div>
-                        <input type="password" name="Password" id="password" required>
+                        <input style="padding: 14px 40px 14px 14px;" type="password" name="Password" id="password" required>
                         <label>Password</label>
                     </div>
                     <button class="register-button" style="font-size:24px" type="submit" name="submit">Login</button>

@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <%@ page import="java.sql.*" %>
 <%
     com.oceanviewresort.Models.StaffMember staffMember = (com.oceanviewresort.Models.StaffMember) session.getAttribute("staffMember");
@@ -183,12 +185,68 @@
 
             <h1 class="home-heading">STAFF MEMBER DASHBOARD</h1>
 
-            <div class="button-container-home">
-                <a class="button-container-home-links" href="add_room_type.jsp"><button class="buttons-home">Add Room Type</button></a>
-                <a class="button-container-home-links" href="add_room.jsp"><button class="buttons-home">Add Room</button></a>
-                <a class="button-container-home-links" href="staff_member_register.jsp"><button class="buttons-home">Create Staff Account</button></a>
-                <a class="button-container-home-links" href="add_room_type.jsp"><button class="buttons-home">View Income Report</button></a>
+            <div class="dashboard-content">
+
+                <div class="dashboard-grid">
+
+                    <div class="dashboard-card">
+                        <h3>📋 Add Reservations</h3>
+                        <p>Add guest bookings, check them in</p>
+                        <a href="reservations.jsp">Open Panel</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>📋 Edit Checked In Reservations</h3>
+                        <p>View, Search and Edit guest bookings, checked in ones.</p>
+                        <a href="reservations.jsp">Open Panel</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>📋 View All Reservations</h3>
+                        <p>View and Search guest bookings, check-ins, and check-outs.</p>
+                        <a href="reservations.jsp">Open Panel</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>📋 View Checked In Reservations</h3>
+                        <p>View and Search guest bookings, checked in ones</p>
+                        <a href="reservations.jsp">Open Panel</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>📋 View Checked Out Reservations</h3>
+                        <p>View and Search guest bookings, checked out ones</p>
+                        <a href="reservations.jsp">Open Panel</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>📋 Finish Reservations</h3>
+                        <p>Finish guest bookings, check them out.</p>
+                        <a href="reservations.jsp">Open Panel</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>🧾 Billing</h3>
+                        <p>Generate invoices and calculate stay costs.</p>
+                        <a href="billing.jsp">Open Billing</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>👤 Edit My Account</h3>
+                        <p>Edit my Account's details.</p>
+                        <a href="staff.jsp">Manage Staff</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>❓ Help</h3>
+                        <p>View system usage instructions for employees.</p>
+                        <a href="help.jsp">Open Guide</a>
+                    </div>
+
+                </div>
+
             </div>
+
 
         </div>
     </div>

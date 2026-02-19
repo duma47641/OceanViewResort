@@ -1,7 +1,4 @@
 <%@ page import="java.sql.*" %>
-<%
-    com.oceanviewresort.Models.StaffMember staffMember = (com.oceanviewresort.Models.StaffMember) session.getAttribute("staffMember");
-%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Home_Style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <title>Home</title>
@@ -85,20 +83,6 @@
     });
 </script>
 
-<script>
-    function togglePasswordVisibility(fieldId, icon) {
-        const input = document.getElementById(fieldId);
-
-        if (input.type === "password") {
-            input.type = "text";
-            icon.className = "bx bx-hide toggle-password";
-        } else {
-            input.type = "password";
-            icon.className = "bx bx-show toggle-password";
-        }
-    }
-</script>
-
 <body>
     <div class="navbar">
         <div class="logo-container">
@@ -106,8 +90,8 @@
         </div>
         <div class="menu-container">
             <ul class="menu-list">
-                <li class="menu-list-item"><menu><a class="link-stylings" href="Home.jsp">Home</a></menu></li>
-                <li class="menu-list-item"><menu><a class="link-stylings" href="Rooms.jsp">Rooms</a></menu></li>
+                <li class="menu-list-item"><menu><a class="link-stylings" href="home.jsp">Home</a></menu></li>
+                <li class="menu-list-item"><menu><a class="link-stylings" href="rooms.jsp">Rooms</a></menu></li>
                 <li class="menu-list-item"><menu class="mobile-dropdown">Room Types <i style="margin-left: 5px;" class="fas fa-caret-down"></i></menu>
                     <ul class="submenu">
                         <%@ page import="java.util.List" %>
@@ -131,15 +115,6 @@
 
                 <li class="menu-list-item"><menu><a class="link-stylings" href="about_us.jsp">About Us</a></menu></li>
 
-                <li class="menu-list-item-last"><menu><a class="link-stylings" href="Register.php">Parking</a></menu></li>
-
-                <% if(staffMember == null){ %>
-                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="Parking_Area_View.html">Register</a></menu></li>
-                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="Login.php">Login</a></menu></li>
-                <% } else { %>
-                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutStaffMember">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
-                <% } %>
-
                 <form action="Rooms_Searching.php" method="get" class="menu-list-item-search-bar-main">
                     <menu><input type="text" name="search" class="menu-list-item-search-bar" placeholder="Search"></menu>
                     <menu><button type="submit" class="search-menu-icon-button"><i class="search-menu-icon fas fa-search"></i></button></menu>
@@ -150,28 +125,14 @@
     </div>
 
     <div class="sidebar">
-
-        <% if(staffMember == null){ %>
-
             <div class="menu-item">
-                <a href="Register.php"><i class="left-menu-icon fas fa-users"></i></a>
-                <span class="submenusidebar">Register</span>
+                <a href="admin_common_login.jsp"><i class="left-menu-icon material-icons">&#xe8d3;</i></a>
+                <span class="submenusidebar">Admin Common Login</span>
             </div>
-
             <div class="menu-item">
-                <a href="Login.php"><i class="left-menu-icon fas fa-user"></i></a>
-                <span class="submenusidebar">Login</span>
+                <a href="staff_member_common_login.jsp"><i class="left-menu-icon fas fa-user"></i></a>
+                <span class="submenusidebar">Staff Member Common Login</span>
             </div>
-
-        <% } else { %>
-
-            <div class="menu-item">
-                <a href="logoutStaffMember"><i class="left-menu-icon fas fa-sign-out-alt"></i></a>
-                <span class="submenusidebar">Logout</span>
-            </div>
-
-        <% } %>
-
     </div>
 
     <div class="container">
@@ -184,11 +145,50 @@
             <h1 class="home-heading">HOME</h1>
 
             <div class="button-container-home">
-                <a class="button-container-home-links" href="add_room_type.jsp"><button class="buttons-home">Add Room Type</button></a>
-                <a class="button-container-home-links" href="add_room.jsp"><button class="buttons-home">Add Room</button></a>
-                <a class="button-container-home-links" href="staff_member_register.jsp"><button class="buttons-home">Create Staff Account</button></a>
-                <a class="button-container-home-links" href="add_room_type.jsp"><button class="buttons-home">View Income Report</button></a>
+                <a class="button-container-home-links" href="admin_common_login.jsp"><button class="buttons-home">Admin Common Login</button></a>
+                <a class="button-container-home-links" href="staff_member_common_login.jsp"><button class="buttons-home">Staff Member Common Login</button></a>
             </div>
+
+            <div class="home-content">
+
+                <!-- HERO IMAGE -->
+                <div class="home-hero">
+                    <img src="img/ocean_view_resort.png" alt="Resort Image">
+                </div>
+
+                <!-- WELCOME TEXT -->
+                <div class="home-intro">
+                    <h2>Welcome to Ocean View Resort Management System</h2>
+                    <p>
+                        This system is designed to help staff efficiently manage reservations,
+                        rooms, and guest information. It ensures smooth operations, prevents
+                        booking conflicts, and simplifies daily hotel tasks through a secure
+                        and user-friendly interface.
+                    </p>
+                </div>
+
+                <!-- INFO BLOCKS -->
+                <div class="home-sections">
+
+                    <div class="home-box">
+                        <h3>Reservation Handling</h3>
+                        <p>Quickly create, view, and manage guest reservations with unique booking IDs.</p>
+                    </div>
+
+                    <div class="home-box">
+                        <h3>Room Tracking</h3>
+                        <p>Monitor room availability, types, and details in real time.</p>
+                    </div>
+
+                    <div class="home-box">
+                        <h3>Billing System</h3>
+                        <p>Automatically calculate total stay cost based on room type and nights.</p>
+                    </div>
+
+                </div>
+
+            </div>
+
 
         </div>
     </div>
@@ -230,24 +230,6 @@
             © <%= java.time.Year.now() %> Cineplex Theatres. All Rights Reserved.
         </div>
     </div>
-
-    <script>
-        function formValidation() {
-        const name = document.getElementById("FullName").value;
-        const password = document.getElementById("password").value;
-        const confirm = document.getElementById("confirm_Password").value;
-        const nameRegex = /^[A-Za-z ]+$/;
-        if (!nameRegex.test(name)) {
-            alert("Full name must contain letters only.");
-            return false;
-        }
-        if (password !== confirm) {
-            alert("Passwords do not match!");
-            return false;
-        }
-        return true;
-    }
-    </script>
 
 </body>
 </html>
