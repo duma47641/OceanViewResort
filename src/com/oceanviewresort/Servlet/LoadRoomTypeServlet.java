@@ -17,7 +17,7 @@ public class LoadRoomTypeServlet extends HttpServlet {
             throws ServletException, IOException {
 
         RoomTypeDAO dao = DAOFactory.getRoomTypeDAO();
-        request.setAttribute("roomList", dao.getAllRoomTypes());
+        request.setAttribute("roomTypeList", dao.getAllRoomTypes());
 
         request.getRequestDispatcher("edit_room_type.jsp")
                 .forward(request, response);

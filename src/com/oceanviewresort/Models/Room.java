@@ -8,16 +8,18 @@ public class Room {
     private String name;
     private String details;
     private double price;
+    private String status;
 
     public Room() {}
 
-    public Room(int id, RoomType roomType, byte[] image, String name, String details, double price) {
+    public Room(int id, RoomType roomType, byte[] image, String name, String details, double price, String status) {
         this.id = id;
         this.roomType = roomType;
         this.image = image;
         this.name = name;
         this.details = details;
         this.price = price;
+        this.status = status;
     }
 
     public Room(RoomType roomType, byte[] image, String name, String details, double price) {
@@ -45,4 +47,7 @@ public class Room {
 
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 }

@@ -2,24 +2,27 @@ package com.oceanviewresort.Servlet;
 
 import com.oceanviewresort.DAO.RoomTypeDAO;
 import com.oceanviewresort.Factory.DAOFactory;
+import com.oceanviewresort.Models.RoomType;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 
-@WebServlet("/LoadRoomTypeViewServlet")
-public class LoadRoomTypeViewServlet extends HttpServlet {
+@WebServlet("/loadRoomTypeForEdit")
+public class LoadRoomTypeForEditServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        RoomTypeDAO dao = DAOFactory.getRoomTypeDAO();
-        request.setAttribute("roomTypeList", dao.getAllRoomTypes());
+        int id = Integer.parseInt(request.getParameter("id"));
 
-        request.getRequestDispatcher("view_room_type.jsp")
+        RoomTypeDAO dao = DAOFactory.getRoomTypeDAO();
+        RoomType roomType = dao.getRoomTypeById(id);
+
+        request.setAttribute("roomType", roomType);
+
+        request.getRequestDispatcher("edit_selected_room_type.jsp")
                 .forward(request, response);
     }
 }

@@ -34,7 +34,7 @@ public class RoomTypeViewListServlet extends HttpServlet {
                     .collect(Collectors.toList());
         }
 
-        request.setAttribute("roomList", list);
+        request.setAttribute("roomTypeList", list);
         RequestDispatcher dispatcher =
                 request.getRequestDispatcher("view_room_type.jsp");
         dispatcher.forward(request, response);

@@ -65,7 +65,8 @@ public class RoomDAOImpl implements RoomDAO {
                         rs.getBytes("Room_Image"),
                         rs.getString("Room_Name"),
                         rs.getString("Room_Details"),
-                        rs.getDouble("Room_Price")
+                        rs.getDouble("Room_Price"),
+                        rs.getString("Room_Status")
                 );
 
                 list.add(room);
@@ -109,7 +110,8 @@ public class RoomDAOImpl implements RoomDAO {
                         rs.getBytes("Room_Image"),
                         rs.getString("Room_Name"),
                         rs.getString("Room_Details"),
-                        rs.getDouble("Room_Price")
+                        rs.getDouble("Room_Price"),
+                        rs.getString("Room_Status")
                 );
             }
 

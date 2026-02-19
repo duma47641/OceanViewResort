@@ -111,6 +111,29 @@ public class RoomTypeDAOImpl implements RoomTypeDAO {
     }
 
     @Override
+    public boolean updateRoomType(RoomType roomType) {
+
+        boolean status = false;
+
+        try {
+            Connection conn = DBConnection.getInstance().getConnection();
+
+            String sql = "UPDATE room_types SET Room_Type_Name=? WHERE Room_Type_ID=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, roomType.getName());
+            ps.setInt(2, roomType.getId());
+
+            status = ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return status;
+    }
+
+    @Override
     public boolean deleteRoomType(int id) {
 
         boolean status = false;

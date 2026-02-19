@@ -5,7 +5,7 @@
     com.oceanviewresort.Models.StaffMember staffMember = (com.oceanviewresort.Models.StaffMember) session.getAttribute("staffMember");
 %>
 <%
-    if(request.getAttribute("roomList") == null){
+    if(request.getAttribute("roomTypeList") == null){
         response.sendRedirect("LoadRoomTypeServlet");
         return;
     }
@@ -211,7 +211,7 @@
                         </thead>
                         <tbody>
                         <%
-                        List<RoomType> list = (List<RoomType>) request.getAttribute("roomList");
+                        List<RoomType> list = (List<RoomType>) request.getAttribute("roomTypeList");
                         
                         if(list != null && !list.isEmpty()){
                             for(RoomType r : list){
@@ -220,7 +220,7 @@
                                     <td><%= r.getId() %></td>
                                     <td><%= r.getName() %></td>
                                     <td>
-                                        <a href="edit_selected_room.jsp?id=<%= r.getId() %>">
+                                        <a href="loadRoomTypeForEdit?id=<%= r.getId() %>">
                                             <button class="edit-btn">Edit</button>
                                         </a>
                                     </td>
