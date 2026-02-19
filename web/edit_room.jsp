@@ -1,14 +1,11 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.oceanviewresort.Models.Room" %>
+<%@ page import="com.oceanviewresort.Models.RoomType" %>
 
 <%@ page import="java.sql.*" %>
 <%
     com.oceanviewresort.Models.Admin admin = (com.oceanviewresort.Models.Admin) session.getAttribute("admin");
-%>
-<%
-    if(request.getAttribute("roomTypeList") == null){
-        response.sendRedirect("LoadRoomTypeServlet");
-        return;
-    }
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -189,62 +186,106 @@
                 <p class="featured-desc">Welcome to Ocean View Resort, your perfect escape to relaxation and luxury by the sea! Experience tranquility like never before with our beautifully designed rooms, breathtaking ocean views, and world-class hospitality. Whether you are seeking a peaceful getaway or a memorable vacation, Ocean View Resort offers the ideal setting to unwind, refresh, and indulge in comfort.</p>
             </div>
 
-            <h1 class="home-heading">EDIT ROOM TYPE LIST</h1>
+            <h1 class="home-heading">EDIT ROOM LIST</h1>
 
             <div class="room-table-list-content">
-                <div class="search-bar-wrapper">
-                    <form method="get" action="roomTypeList" class="search-form">
+                <div class="filter-bar">
+                    <form method="get" action="roomList" class="filter-form">
                         <input type="text"
                                name="search"
-                               placeholder="Search room type..."
+                               placeholder="Search anything..."
                                value="<%= request.getParameter("search") != null ? request.getParameter("search") : "" %>">
-                        <button type="submit">Search</button>
+                        <select name="type">
+                        <option value="">All Room Types</option>
+                        <%
+                        String selectedType = request.getParameter("type");
+                        List<RoomType> types = (List<RoomType>) request.getAttribute("typeList");
+                        if(types != null){
+                            for(RoomType t : types){
+                                String selected = (selectedType != null && selectedType.equals(String.valueOf(t.getId())))
+                                                  ? "selected" : "";
+                        %>
+                        <option value="<%=t.getId()%>" <%=selected%>><%=t.getName()%></option>
+                        <%
+                            }
+                        }
+                        %>
+                        </select>
+                        <button type="submit">Filter</button>
                     </form>
                 </div>
 
+
                 <div class="table-wrapper">
-                
                     <table class="room-table">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Room Type Name</th>
+                                <th>Room Type</th>
+                                <th>Name</th>
+                                <th>Details</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
+                    
                         <tbody>
                         <%
-                        List<RoomType> list = (List<RoomType>) request.getAttribute("roomTypeList");
-                        
-                        if(list != null && !list.isEmpty()){
-                            for(RoomType r : list){
+                            List<Room> list = (List<Room>) request.getAttribute("roomList");
+                            
+                            if(list != null && !list.isEmpty()){
+                                for(Room r : list){
+                                
+                                    String base64 = "";
+                                    if(r.getImage()!=null){
+                                        base64 = java.util.Base64.getEncoder().encodeToString(r.getImage());
+                                    }
                         %>
-                                <tr>
-                                    <td><%= r.getId() %></td>
-                                    <td><%= r.getName() %></td>
-                                    <td>
-                                        <a href="loadRoomTypeForEdit?id=<%= r.getId() %>">
-                                            <button class="edit-btn">Edit</button>
-                                        </a>
-                                    </td>
-                                </tr>
+                                
+                            <tr>
+                                <td><%= r.getId() %></td>
+                                <td><%= r.getRoomType().getName() %></td>
+                                <td><%= r.getName() %></td>
+                                <td><%= r.getDetails() %></td>
+                                <td><%= r.getPrice() %></td>
+                                <td><%= r.getStatus() %></td>
+                            
+                                <td>
+                                    <% if(!base64.equals("")){ %>
+                                        <img src="data:image/jpeg;base64,<%=base64%>" width="80">
+                                    <% } else { %>
+                                        No Image
+                                    <% } %>
+                                </td>
+                            
+                                <td>
+                                    <a href="loadRoomForEdit?id=<%= r.getId() %>">
+                                        <button class="edit-btn">Edit</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        
+                        <%
+                                }
+                            } else {
+                        %>
+                            
+                            <tr>
+                                <td colspan="8" style="text-align:center; padding:20px;">
+                                    No rooms found.
+                                </td>
+                            </tr>
+                        
                         <%
                             }
-                        }else{
-                        %>
-                                <tr>
-                                    <td colspan="3" style="text-align:center; padding:20px;">
-                                        No room types found.
-                                    </td>
-                                </tr>
-                        <%
-                        }
                         %>
                         </tbody>
                     
                     </table>
-
                 </div>
+
             </div>
 
 

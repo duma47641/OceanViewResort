@@ -166,4 +166,80 @@ public class RoomDAOImpl implements RoomDAO {
 
         return exists;
     }
+
+    @Override
+    public List<Room> searchRooms(String keyword, String typeId){
+
+        List<Room> list = new ArrayList<>();
+
+        try{
+            Connection conn = DBConnection.getInstance().getConnection();
+
+            String sql =
+                    "SELECT r.*, rt.Room_Type_Name FROM rooms r " +
+                            "JOIN room_types rt ON r.Room_Type_ID = rt.Room_Type_ID " +
+                            "WHERE 1=1 ";
+
+            if(keyword != null && !keyword.trim().isEmpty()){
+                sql += "AND ( " +
+                        "CAST(r.Room_ID AS CHAR) LIKE ? OR " +
+                        "r.Room_Name LIKE ? OR " +
+                        "r.Room_Details LIKE ? OR " +
+                        "r.Room_Status LIKE ? OR " +
+                        "rt.Room_Type_Name LIKE ? OR " +
+                        "CAST(r.Room_Price AS CHAR) LIKE ? " +
+                        ") ";
+            }
+
+            if(typeId != null && !typeId.isEmpty()){
+                sql += "AND r.Room_Type_ID = ? ";
+            }
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            int index = 1;
+
+            if(keyword != null && !keyword.trim().isEmpty()){
+                String key = "%" + keyword.trim() + "%";
+
+                ps.setString(index++, key);
+                ps.setString(index++, key);
+                ps.setString(index++, key);
+                ps.setString(index++, key);
+                ps.setString(index++, key);
+                ps.setString(index++, key);
+            }
+
+            if(typeId != null && !typeId.isEmpty()){
+                ps.setInt(index++, Integer.parseInt(typeId));
+            }
+
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+
+                RoomType type = new RoomType(
+                        rs.getInt("Room_Type_ID"),
+                        rs.getString("Room_Type_Name")
+                );
+
+                Room room = new Room(
+                        rs.getInt("Room_ID"),
+                        type,
+                        rs.getBytes("Room_Image"),
+                        rs.getString("Room_Name"),
+                        rs.getString("Room_Details"),
+                        rs.getDouble("Room_Price"),
+                        rs.getString("Room_Status")
+                );
+
+                list.add(room);
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 }

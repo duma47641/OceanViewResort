@@ -223,7 +223,7 @@
                     <div class="dashboard-card">
                         <h3>🛏 Edit Rooms</h3>
                         <p>Edit rooms with its details and prices.</p>
-                        <a href="add_room.jsp">Edit Rooms</a>
+                        <a href="roomList">Edit Rooms</a>
                     </div>
 
                     <div class="dashboard-card">

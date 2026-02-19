@@ -519,8 +519,6 @@ menu {
 .room-table-list-content .table-wrapper{
     width:100%;
     overflow-x:auto;
-    padding-left: 20px;
-    padding-right: 20px;
 }
 
 .room-table-list-content .room-table{
@@ -607,7 +605,9 @@ menu {
 
 /* TABLE AREA CENTERED */
 .room-table-list-content .table-wrapper{
-    width:100%;
+    width:calc(100% - 40px);
+    margin:0 auto;
+    overflow-x:auto;
 }
 
 /* inner table scroll container */
@@ -619,6 +619,48 @@ menu {
 
 }
 
+
+
+
+
+
+
+.filter-bar{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    margin-bottom:20px;
+}
+
+.filter-form{
+    width:100%;
+    max-width:900px;
+    padding:0 20px;
+    display:flex;
+    gap:10px;
+}
+
+.filter-form input,
+.filter-form select{
+    flex:1;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+.filter-form button{
+    padding:12px 24px;
+    border:none;
+    background:#0d6efd;
+    color:white;
+    border-radius:8px;
+}
+
+@media(max-width:900px){
+    .filter-form{
+        flex-direction:column;
+    }
+}
 
 
 
