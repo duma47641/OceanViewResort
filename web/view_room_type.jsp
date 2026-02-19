@@ -1,4 +1,15 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <%@ page import="java.sql.*" %>
+<%
+    com.oceanviewresort.Models.StaffMember staffMember = (com.oceanviewresort.Models.StaffMember) session.getAttribute("staffMember");
+%>
+<%
+    if(request.getAttribute("roomList") == null){
+        response.sendRedirect("LoadRoomTypeViewServlet");
+        return;
+    }
+%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,12 +19,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Home_Style.css">
-    <link rel="stylesheet" href="Register.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <title>Admin Common Login</title>
+    <title>View Room Type</title>
 </head>
 
 <script>
@@ -132,6 +141,13 @@
 
                 <li class="menu-list-item-last"><menu><a class="link-stylings" href="Register.php">Parking</a></menu></li>
 
+                <% if(staffMember == null){ %>
+                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="Parking_Area_View.html">Register</a></menu></li>
+                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="Login.php">Login</a></menu></li>
+                <% } else { %>
+                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutStaffMember">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
+                <% } %>
+
                 <form action="Rooms_Searching.php" method="get" class="menu-list-item-search-bar-main">
                     <menu><input type="text" name="search" class="menu-list-item-search-bar" placeholder="Search"></menu>
                     <menu><button type="submit" class="search-menu-icon-button"><i class="search-menu-icon fas fa-search"></i></button></menu>
@@ -142,14 +158,28 @@
     </div>
 
     <div class="sidebar">
-        <div class="menu-item">
-            <a href="admin_common_login.jsp"><i class="left-menu-icon material-icons">&#xe8d3;</i></a>
-            <span class="submenusidebar">Admin Common Login</span>
-        </div>
-        <div class="menu-item">
-            <a href="staff_member_common_login.jsp"><i class="left-menu-icon fas fa-user"></i></a>
-            <span class="submenusidebar">Staff Member Common Login</span>
-        </div>
+
+        <% if(staffMember == null){ %>
+
+            <div class="menu-item">
+                <a href="Register.php"><i class="left-menu-icon fas fa-users"></i></a>
+                <span class="submenusidebar">Register</span>
+            </div>
+
+            <div class="menu-item">
+                <a href="Login.php"><i class="left-menu-icon fas fa-user"></i></a>
+                <span class="submenusidebar">Login</span>
+            </div>
+
+        <% } else { %>
+
+            <div class="menu-item">
+                <a href="logoutStaffMember"><i class="left-menu-icon fas fa-sign-out-alt"></i></a>
+                <span class="submenusidebar">Logout</span>
+            </div>
+
+        <% } %>
+
     </div>
 
     <div class="container">
@@ -158,24 +188,57 @@
                 <img class="featured-title-image" src="img/Ocean_View_Resort_Logo.png" alt="">
                 <p class="featured-desc">Welcome to Ocean View Resort, your perfect escape to relaxation and luxury by the sea! Experience tranquility like never before with our beautifully designed rooms, breathtaking ocean views, and world-class hospitality. Whether you are seeking a peaceful getaway or a memorable vacation, Ocean View Resort offers the ideal setting to unwind, refresh, and indulge in comfort.</p>
             </div>
-            <div class="register-form-container">
-                <form id="registration" method="post" onsubmit="return formValidation()">
-                    <h1>ADMIN COMMON LOGIN</h1>
-                    <div class="input-box">
-                        <input style="padding: 14px 40px 14px 14px;" type="Email" id="EmailID" name="EmailName" required>
-                        <label>Email</label>
-                        <div class="icons-container"><i class='bx bxs-envelope'></i></div>
-                    </div>
-                    <div class="input-box">
-                        <div class="icons-container">
-                            <i class="bx bx-show toggle-password" onclick="togglePasswordVisibility('password', this)"></i>
-                        </div>
-                        <input style="padding: 14px 40px 14px 14px;" type="password" name="PasswordName" id="password" required>
-                        <label>Password</label>
-                    </div>
-                    <button class="register-button" style="font-size:24px" type="submit" name="submit">Admin Common Login</button>
-                </form>
+
+            <h1 class="home-heading">VIEW ROOM TYPE LIST</h1>
+
+            <div class="room-table-list-content">
+                <div class="search-bar-wrapper">
+                    <form method="get" action="roomTypeViewList" class="search-form">
+                        <input type="text" name="search" placeholder="Search room type...">
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
+
+                <div class="table-wrapper">
+                
+                    <table class="room-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Room Type Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <%
+                        List<RoomType> list = (List<RoomType>) request.getAttribute("roomList");
+                        
+                        if(list != null && !list.isEmpty()){
+                            for(RoomType r : list){
+                        %>
+                                <tr>
+                                    <td><%= r.getId() %></td>
+                                    <td><%= r.getName() %></td>
+                                </tr>
+                        <%
+                            }
+                        }else{
+                        %>
+                                <tr>
+                                    <td colspan="3" style="text-align:center; padding:20px;">
+                                        No room types found.
+                                    </td>
+                                </tr>
+                        <%
+                        }
+                        %>
+                        </tbody>
+                    
+                    </table>
+
+                </div>
             </div>
+
+
         </div>
     </div>
 
@@ -219,17 +282,19 @@
 
     <script>
         function formValidation() {
-        const email = document.getElementById("EmailID").value;
+        const name = document.getElementById("FullName").value;
         const password = document.getElementById("password").value;
-        if (email == "admincommonlogin@oceanviewresort.lk" && password == "12345") {
-            alert("Admin Common Login Successful.");
-            window.location='admin_login.jsp';
+        const confirm = document.getElementById("confirm_Password").value;
+        const nameRegex = /^[A-Za-z ]+$/;
+        if (!nameRegex.test(name)) {
+            alert("Full name must contain letters only.");
             return false;
         }
-        else {
-            alert("Admin Common Login Failed!");
+        if (password !== confirm) {
+            alert("Passwords do not match!");
             return false;
         }
+        return true;
     }
     </script>
 

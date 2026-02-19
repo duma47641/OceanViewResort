@@ -199,49 +199,49 @@
                     <div class="dashboard-card">
                         <h3>🏷 Add Room Types</h3>
                         <p>Create and organize room categories.</p>
-                        <a href="add_room_type.jsp">Manage Types</a>
+                        <a href="add_room_type.jsp">Add Room Types</a>
                     </div>
 
                     <div class="dashboard-card">
                         <h3>🏷 Edit Room Types</h3>
                         <p>Edit and examine room categories.</p>
-                        <a href="add_room_type.jsp">Manage Types</a>
+                        <a href="edit_room_type.jsp">Edit Room Types</a>
                     </div>
 
                     <div class="dashboard-card">
                         <h3>🏷 View Room Types</h3>
                         <p>View and search room categories.</p>
-                        <a href="add_room_type.jsp">Manage Types</a>
+                        <a href="view_room_type.jsp">View Room Types</a>
                     </div>
 
                     <div class="dashboard-card">
                         <h3>🛏 Add Rooms</h3>
                         <p>Add rooms with its details and prices.</p>
-                        <a href="add_room.jsp">Manage Rooms</a>
+                        <a href="add_room.jsp">Add Rooms</a>
                     </div>
 
                     <div class="dashboard-card">
                         <h3>🛏 Edit Rooms</h3>
                         <p>Edit rooms with its details and prices.</p>
-                        <a href="add_room.jsp">Manage Rooms</a>
+                        <a href="add_room.jsp">Edit Rooms</a>
                     </div>
 
                     <div class="dashboard-card">
                         <h3>🛏 View Rooms</h3>
                         <p>View and Search rooms with its details and prices.</p>
-                        <a href="add_room.jsp">Manage Rooms</a>
+                        <a href="add_room.jsp">View Rooms</a>
                     </div>
 
                     <div class="dashboard-card">
-                        <h3>👤 Create Staff Accounts</h3>
+                        <h3>👤 Create Staff Member Accounts</h3>
                         <p>Create staff login accounts and permissions.</p>
-                        <a href="staff.jsp">Manage Staff</a>
+                        <a href="staff.jsp">Create Staff Member</a>
                     </div>
 
                     <div class="dashboard-card">
-                        <h3>👤 View Staff Accounts</h3>
+                        <h3>👤 View Staff Member Accounts</h3>
                         <p>View and Search staff login accounts and permissions.</p>
-                        <a href="staff.jsp">Manage Staff</a>
+                        <a href="staff.jsp">View Staff Member</a>
                     </div>
 
                     <div class="dashboard-card">
