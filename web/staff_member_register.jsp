@@ -182,7 +182,7 @@
                 <p class="featured-desc">Welcome to Ocean View Resort, your perfect escape to relaxation and luxury by the sea! Experience tranquility like never before with our beautifully designed rooms, breathtaking ocean views, and world-class hospitality. Whether you are seeking a peaceful getaway or a memorable vacation, Ocean View Resort offers the ideal setting to unwind, refresh, and indulge in comfort.</p>
             </div>
             <div class="register-form-container">
-                <form id="registration" method="post" action="adminRegister" onsubmit="return formValidation()">
+                <form id="registration" method="post" action="staffMemberRegister" onsubmit="return formValidation()">
                     <h1>STAFF MEMBER REGISTRATION</h1>
                     <div class="input-box">
                         <input style="padding: 14px 40px 14px 14px;" type="text" id="FullName" name="FullName" required>

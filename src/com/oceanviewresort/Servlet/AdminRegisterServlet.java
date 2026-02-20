@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 import com.oceanviewresort.DAO.AdminDAO;
+import com.oceanviewresort.Factory.DAOFactory;
 import com.oceanviewresort.Models.Admin;
 
 @WebServlet("/adminRegister")
@@ -50,7 +51,7 @@ public class AdminRegisterServlet extends HttpServlet {
         admin.setEmail(email);
         admin.setPassword(password);
 
-        AdminDAO dao = new AdminDAO();
+        AdminDAO dao = DAOFactory.getAdminDAO();
         boolean success = dao.register(admin);
 
         // -------- RESPONSE --------

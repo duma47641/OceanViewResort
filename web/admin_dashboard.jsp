@@ -233,15 +233,15 @@
                     </div>
 
                     <div class="dashboard-card">
-                        <h3>👤 Create Staff Member Accounts</h3>
+                        <h3>👥 Create Staff Member Accounts</h3>
                         <p>Create staff login accounts and permissions.</p>
-                        <a href="staff_member_register.jsp">Create Staff Member</a>
+                        <a href="staff_member_register.jsp">Create Staff Members</a>
                     </div>
 
                     <div class="dashboard-card">
-                        <h3>👤 View Staff Member Accounts</h3>
-                        <p>View and Search staff login accounts and permissions.</p>
-                        <a href="staff.jsp">View Staff Member</a>
+                        <h3>👤 Manage My Account</h3>
+                        <p>Update my login account and permissions.</p>
+                        <a href="staff.jsp">Manage My Account</a>
                     </div>
 
                     <div class="dashboard-card">

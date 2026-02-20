@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 import com.oceanviewresort.DAO.StaffMemberDAO;
+import com.oceanviewresort.Factory.DAOFactory;
 import com.oceanviewresort.Models.StaffMember;
 
 @WebServlet("/staffMemberLogin")
@@ -35,7 +36,7 @@ public class StaffMemberLoginServlet extends HttpServlet {
 
         // -------- DATABASE CHECK --------
 
-        StaffMemberDAO dao = new StaffMemberDAO();
+        StaffMemberDAO dao = DAOFactory.getStaffMemberDAO();
         StaffMember staffMember = dao.login(email, password);
 
         // -------- LOGIN RESULT --------
