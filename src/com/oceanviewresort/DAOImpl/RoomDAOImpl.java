@@ -242,4 +242,32 @@ public class RoomDAOImpl implements RoomDAO {
 
         return list;
     }
+
+    @Override
+    public boolean updateRoom(Room room){
+
+        boolean status = false;
+
+        try{
+            Connection conn = DBConnection.getInstance().getConnection();
+
+            String sql = "UPDATE rooms SET Room_Type_ID=?, Room_Image=?, Room_Name=?, Room_Details=?, Room_Price=? WHERE Room_ID=?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, room.getRoomType().getId());
+            ps.setBytes(2, room.getImage());
+            ps.setString(3, room.getName());
+            ps.setString(4, room.getDetails());
+            ps.setDouble(5, room.getPrice());
+            ps.setInt(6, room.getId());
+
+            status = ps.executeUpdate() > 0;
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return status;
+    }
 }

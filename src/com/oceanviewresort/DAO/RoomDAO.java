@@ -10,5 +10,5 @@ public interface RoomDAO {
     boolean deleteRoom(int id);
     boolean isRoomNameExists(String name);
     List<Room> searchRooms(String keyword, String typeId);
-
+    boolean updateRoom(Room room);
 }

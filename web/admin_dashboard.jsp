@@ -229,13 +229,13 @@
                     <div class="dashboard-card">
                         <h3>🛏 View Rooms</h3>
                         <p>View and Search rooms with its details and prices.</p>
-                        <a href="add_room.jsp">View Rooms</a>
+                        <a href="roomViewList">View Rooms</a>
                     </div>
 
                     <div class="dashboard-card">
                         <h3>👤 Create Staff Member Accounts</h3>
                         <p>Create staff login accounts and permissions.</p>
-                        <a href="staff.jsp">Create Staff Member</a>
+                        <a href="staff_member_register.jsp">Create Staff Member</a>
                     </div>
 
                     <div class="dashboard-card">

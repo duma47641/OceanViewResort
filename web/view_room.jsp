@@ -190,7 +190,7 @@
 
             <div class="room-table-list-content">
                 <div class="filter-bar">
-                    <form method="get" action="roomList" class="filter-form">
+                    <form method="get" action="roomViewList" class="filter-form">
                         <input type="text"
                                name="search"
                                placeholder="Search anything..."
@@ -227,21 +227,22 @@
                                 <th>Price</th>
                                 <th>Status</th>
                                 <th>Image</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
+
                         <tbody>
                         <%
-                            List<Room> list = (List<Room>) request.getAttribute("roomList");
-                            
+                            List<Room> list = (List<Room>) request.getAttribute("roomViewList");
+
                             if(list != null && !list.isEmpty()){
                                 for(Room r : list){
-                                
+
                                     String base64 = "";
                                     if(r.getImage()!=null){
                                         base64 = java.util.Base64.getEncoder().encodeToString(r.getImage());
                                     }
                         %>
+
                             <tr>
                                 <td><%= r.getId() %></td>
                                 <td><%= r.getRoomType().getName() %></td>
@@ -249,7 +250,7 @@
                                 <td><%= r.getDetails() %></td>
                                 <td><%= r.getPrice() %></td>
                                 <td><%= r.getStatus() %></td>
-                            
+
                                 <td>
                                     <% if(!base64.equals("")){ %>
                                         <img src="data:image/jpeg;base64,<%=base64%>" width="80">
@@ -257,26 +258,24 @@
                                         No Image
                                     <% } %>
                                 </td>
-                            
-                                <td>
-                                    <a href="loadRoomForEdit?id=<%= r.getId() %>">
-                                        <button class="edit-btn">Edit</button>
-                                    </a>
-                                </td>
                             </tr>
+
                         <%
                                 }
                             } else {
                         %>
+
                             <tr>
                                 <td colspan="8" style="text-align:center; padding:20px;">
                                     No rooms found.
                                 </td>
                             </tr>
+
                         <%
                             }
                         %>
                         </tbody>
+
                     </table>
                 </div>
 

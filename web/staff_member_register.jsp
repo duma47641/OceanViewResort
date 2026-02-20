@@ -1,6 +1,6 @@
 <%@ page import="java.sql.*" %>
 <%
-    com.oceanviewresort.Models.StaffMember staffMember = (com.oceanviewresort.Models.StaffMember) session.getAttribute("staffMember");
+    com.oceanviewresort.Models.Admin admin = (com.oceanviewresort.Models.Admin) session.getAttribute("admin");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -134,11 +134,11 @@
 
                 <li class="menu-list-item-last"><menu><a class="link-stylings" href="Register.php">Parking</a></menu></li>
 
-                <% if(staffMember == null){ %>
+                <% if(admin == null){ %>
                     <li class="menu-list-item-last"><menu><a class="link-stylings" href="Parking_Area_View.html">Register</a></menu></li>
                     <li class="menu-list-item-last"><menu><a class="link-stylings" href="Login.php">Login</a></menu></li>
                 <% } else { %>
-                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutStaffMember">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
+                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutAdmin">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
                 <% } %>
 
                 <form action="Rooms_Searching.php" method="get" class="menu-list-item-search-bar-main">
@@ -152,7 +152,7 @@
 
     <div class="sidebar">
 
-        <% if(staffMember == null){ %>
+        <% if(admin == null){ %>
 
             <div class="menu-item">
                 <a href="Register.php"><i class="left-menu-icon fas fa-users"></i></a>
@@ -167,7 +167,7 @@
         <% } else { %>
 
             <div class="menu-item">
-                <a href="logoutStaffMember"><i class="left-menu-icon fas fa-sign-out-alt"></i></a>
+                <a href="logoutAdmin"><i class="left-menu-icon fas fa-sign-out-alt"></i></a>
                 <span class="submenusidebar">Logout</span>
             </div>
 
@@ -182,7 +182,7 @@
                 <p class="featured-desc">Welcome to Ocean View Resort, your perfect escape to relaxation and luxury by the sea! Experience tranquility like never before with our beautifully designed rooms, breathtaking ocean views, and world-class hospitality. Whether you are seeking a peaceful getaway or a memorable vacation, Ocean View Resort offers the ideal setting to unwind, refresh, and indulge in comfort.</p>
             </div>
             <div class="register-form-container">
-                <form id="registration" method="post" action="staffMemberRegister" onsubmit="return formValidation()">
+                <form id="registration" method="post" action="adminRegister" onsubmit="return formValidation()">
                     <h1>STAFF MEMBER REGISTRATION</h1>
                     <div class="input-box">
                         <input style="padding: 14px 40px 14px 14px;" type="text" id="FullName" name="FullName" required>

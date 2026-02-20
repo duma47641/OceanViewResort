@@ -7,9 +7,7 @@ import com.oceanviewresort.DAOImpl.RoomTypeDAOImpl;
 
 public class DAOFactory {
 
-    public static RoomTypeDAO getRoomTypeDAO() {
-        return new RoomTypeDAOImpl();
-    }
+    public static RoomTypeDAO getRoomTypeDAO() { return new RoomTypeDAOImpl(); }
 
     public static RoomDAO getRoomDAO() {
         return new RoomDAOImpl();

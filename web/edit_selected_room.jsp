@@ -1,8 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.oceanviewresort.Models.Room" %>
-<%@ page import="com.oceanviewresort.Models.RoomType" %>
-
 <%@ page import="java.sql.*" %>
 <%
     com.oceanviewresort.Models.Admin admin = (com.oceanviewresort.Models.Admin) session.getAttribute("admin");
@@ -16,10 +11,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Home_Style.css">
+    <link rel="stylesheet" href="Register.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <title>Edit Room Type</title>
+    <title>Add Room</title>
 </head>
 
 <script>
@@ -185,104 +181,61 @@
                 <img class="featured-title-image" src="img/Ocean_View_Resort_Logo.png" alt="">
                 <p class="featured-desc">Welcome to Ocean View Resort, your perfect escape to relaxation and luxury by the sea! Experience tranquility like never before with our beautifully designed rooms, breathtaking ocean views, and world-class hospitality. Whether you are seeking a peaceful getaway or a memorable vacation, Ocean View Resort offers the ideal setting to unwind, refresh, and indulge in comfort.</p>
             </div>
+            <div class="register-form-container">
+                <%@ page import="com.oceanviewresort.Models.Room" %>
 
-            <h1 class="home-heading">EDIT ROOM LIST</h1>
-
-            <div class="room-table-list-content">
-                <div class="filter-bar">
-                    <form method="get" action="roomList" class="filter-form">
-                        <input type="text"
-                               name="search"
-                               placeholder="Search anything..."
-                               value="<%= request.getParameter("search") != null ? request.getParameter("search") : "" %>">
-                        <select name="type">
-                        <option value="">All Room Types</option>
+                <%
+                Room room = (Room) request.getAttribute("room");
+                %>
+                <form id="registration" method="post" action="updateRoom" onsubmit="return formValidation()" enctype="multipart/form-data">
+                    <h1>UPDATE ROOM</h1>
+                    <%@ page import="java.util.List" %>
+                    <%@ page import="com.oceanviewresort.Models.RoomType" %>
+                    <div class="input-box">
+                        <select id="RoomType" name="RoomTypeID" required>
                         <%
-                        String selectedType = request.getParameter("type");
-                        List<RoomType> types = (List<RoomType>) request.getAttribute("typeList");
+                        List<RoomType> types = (List<RoomType>) request.getAttribute("roomTypes");
+
                         if(types != null){
                             for(RoomType t : types){
-                                String selected = (selectedType != null && selectedType.equals(String.valueOf(t.getId())))
-                                                  ? "selected" : "";
                         %>
-                        <option value="<%=t.getId()%>" <%=selected%>><%=t.getName()%></option>
+                        <option value="<%= t.getId() %>"
+                            <%= (room != null && room.getRoomType().getId() == t.getId()) ? "selected" : "" %>>
+                            <%= t.getName() %>
+                        </option>
                         <%
                             }
                         }
                         %>
                         </select>
-                        <button type="submit">Filter</button>
-                    </form>
-                </div>
-
-
-                <div class="table-wrapper">
-                    <table class="room-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Room Type</th>
-                                <th>Name</th>
-                                <th>Details</th>
-                                <th>Price</th>
-                                <th>Status</th>
-                                <th>Image</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <%
-                            List<Room> list = (List<Room>) request.getAttribute("roomList");
-                            
-                            if(list != null && !list.isEmpty()){
-                                for(Room r : list){
-                                
-                                    String base64 = "";
-                                    if(r.getImage()!=null){
-                                        base64 = java.util.Base64.getEncoder().encodeToString(r.getImage());
-                                    }
-                        %>
-                            <tr>
-                                <td><%= r.getId() %></td>
-                                <td><%= r.getRoomType().getName() %></td>
-                                <td><%= r.getName() %></td>
-                                <td><%= r.getDetails() %></td>
-                                <td><%= r.getPrice() %></td>
-                                <td><%= r.getStatus() %></td>
-                            
-                                <td>
-                                    <% if(!base64.equals("")){ %>
-                                        <img src="data:image/jpeg;base64,<%=base64%>" width="80">
-                                    <% } else { %>
-                                        No Image
-                                    <% } %>
-                                </td>
-                            
-                                <td>
-                                    <a href="loadRoomForEdit?id=<%= r.getId() %>">
-                                        <button class="edit-btn">Edit</button>
-                                    </a>
-                                </td>
-                            </tr>
-                        <%
-                                }
-                            } else {
-                        %>
-                            <tr>
-                                <td colspan="8" style="text-align:center; padding:20px;">
-                                    No rooms found.
-                                </td>
-                            </tr>
-                        <%
-                            }
-                        %>
-                        </tbody>
-                    </table>
-                </div>
-
+                        <label class="on-top-labels" for="RoomType">Room Type</label>
+                    </div>
+                    <input type="hidden" name="RoomID" value="<%= room.getId() %>">
+                    <%
+                    if(room != null && room.getImage()!=null){
+                    String base64 = java.util.Base64.getEncoder().encodeToString(room.getImage());
+                    %>
+                    <img src="data:image/jpeg;base64,<%=base64%>" width="200" style="margin-bottom: 25px">
+                    <% } %>
+                    <div class="input-box">
+                        <input type="file" id="RoomImageID" name="RoomImageName">
+                        <label class="on-top-labels">Room Image</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="text" id="RoomNameID" name="RoomNameName" value="<%= room != null ? room.getName() : "" %>" required>
+                        <label>Room Name</label>
+                    </div>
+                    <div class="input-box">
+                        <textarea type="text" id="RoomDetailsID" name="RoomDetailsName" required><%= room != null ? room.getDetails() : "" %></textarea>
+                        <label>Room Details</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="number" id="RoomPriceID" name="RoomPriceName" value="<%= room != null ? room.getPrice() : "" %>" required>
+                        <label>Room Price</label>
+                    </div>
+                    <button class="register-button" style="font-size:24px" type="submit" name="submit">Update Room</button>
+                </form>
             </div>
-
-
         </div>
     </div>
 
