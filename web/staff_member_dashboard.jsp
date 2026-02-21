@@ -192,7 +192,7 @@
                     <div class="dashboard-card">
                         <h3>📋 Add Reservations</h3>
                         <p>Add guest bookings, check them in</p>
-                        <a href="roomList">Open Panel</a>
+                        <a href="roomList?page=addReservationList">Open Panel</a>
                     </div>
 
                     <div class="dashboard-card">

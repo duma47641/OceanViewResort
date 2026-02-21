@@ -8,4 +8,9 @@ public interface AdminDAO {
 
     boolean register(Admin admin);
 
+    boolean updateAdmin(Admin admin);
+
+    Admin getAdminById(int id);
+
+    boolean isAdminEmailExists(String email);
 }

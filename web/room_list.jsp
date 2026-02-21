@@ -260,7 +260,7 @@
 
                                 <td>
                                     <a href="loadRoomForEdit?id=<%= r.getId() %>">
-                                        <button class="edit-btn">Edit</button>
+                                        <button class="edit-btn">Reserve</button>
                                     </a>
                                 </td>
                             </tr>

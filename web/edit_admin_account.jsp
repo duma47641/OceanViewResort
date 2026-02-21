@@ -1,5 +1,3 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
 <%@ page import="java.sql.*" %>
 <%
     com.oceanviewresort.Models.Admin admin = (com.oceanviewresort.Models.Admin) session.getAttribute("admin");
@@ -13,10 +11,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Home_Style.css">
+    <link rel="stylesheet" href="Register.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <title>Admin Dashboard</title>
+    <title>Register</title>
 </head>
 
 <script>
@@ -182,78 +181,41 @@
                 <img class="featured-title-image" src="img/Ocean_View_Resort_Logo.png" alt="">
                 <p class="featured-desc">Welcome to Ocean View Resort, your perfect escape to relaxation and luxury by the sea! Experience tranquility like never before with our beautifully designed rooms, breathtaking ocean views, and world-class hospitality. Whether you are seeking a peaceful getaway or a memorable vacation, Ocean View Resort offers the ideal setting to unwind, refresh, and indulge in comfort.</p>
             </div>
-
-            <h1 class="home-heading">ADMIN DASHBOARD</h1>
-
-            <div class="button-container-home">
-                <a class="button-container-home-links" href="add_room_type.jsp"><button class="buttons-home">Add Room Type</button></a>
-                <a class="button-container-home-links" href="add_room.jsp"><button class="buttons-home">Add Room</button></a>
-                <a class="button-container-home-links" href="staff_member_register.jsp"><button class="buttons-home">Create Staff Account</button></a>
-                <a class="button-container-home-links" href="add_room_type.jsp"><button class="buttons-home">View Income Report</button></a>
+            <div class="register-form-container">
+                <form id="registration" method="post" action="updateAdmin" onsubmit="return formValidation()">
+                    <h1>ADMIN REGISTRATION</h1>
+                    <!-- hidden ID -->
+                    <input type="hidden" name="id" value="<%= ((com.oceanviewresort.Models.Admin)request.getAttribute("admin")).getId() %>">
+                    <div class="input-box">
+                        <input style="padding: 14px 40px 14px 14px;" type="text" id="FullName" name="FullName" value="<%= ((com.oceanviewresort.Models.Admin)request.getAttribute("admin")).getFullName() %>" required>
+                        <label>Full Name</label>
+                        <div class="icons-container"><i class='bx bxs-user'></i></div>
+                    </div>
+                    <div class="input-box">
+                        <input style="padding: 14px 40px 14px 14px;" type="Email" id="Email" name="Email" value="<%= ((com.oceanviewresort.Models.Admin)request.getAttribute("admin")).getEmail() %>" required>
+                        <label>Email</label>
+                        <div class="icons-container"><i class='bx bxs-envelope'></i></div>
+                    </div>
+                    <div class="input-box">
+                        <div class="icons-container">
+                            <i class="bx bx-show toggle-password" onclick="togglePasswordVisibility('password', this)"></i>
+                        </div>
+                        <input style="padding: 14px 40px 14px 14px;" type="password" name="Password" id="password">
+                        <label>Password</label>
+                    </div>
+                    <div class="input-box">
+                        <div class="icons-container">
+                            <i class="bx bx-show toggle-password" onclick="togglePasswordVisibility('confirm_Password', this)"></i>
+                        </div>
+                        <input style="padding: 14px 40px 14px 14px;" type="password" name="Confirm_Password" id="confirm_Password">
+                        <label>Confirm Password</label>
+                    </div>
+                    <button class="register-button" style="font-size:24px" type="submit" name="submit">Register</button>
+                    <div class="signIn-link">
+                        <p>Already have an account?<a href="admin_login.jsp" class="signInBtn"> Sign In</a></p>
+                    </div>
+                </form>
             </div>
-
-            <div class="dashboard-content">
-
-                <div class="dashboard-grid">
-
-                    <div class="dashboard-card">
-                        <h3>🏷 Add Room Types</h3>
-                        <p>Create and organize room categories.</p>
-                        <a href="add_room_type.jsp">Add Room Types</a>
-                    </div>
-
-                    <div class="dashboard-card">
-                        <h3>🏷 Edit Room Types</h3>
-                        <p>Edit and examine room categories.</p>
-                        <a href="roomTypeList">Edit Room Types</a>
-                    </div>
-
-                    <div class="dashboard-card">
-                        <h3>🏷 View Room Types</h3>
-                        <p>View and search room categories.</p>
-                        <a href="roomTypeList?page=viewRoomTypeListAdmin">View Room Types</a>
-                    </div>
-
-                    <div class="dashboard-card">
-                        <h3>🛏 Add Rooms</h3>
-                        <p>Add rooms with its details and prices.</p>
-                        <a href="add_room.jsp">Add Rooms</a>
-                    </div>
-
-                    <div class="dashboard-card">
-                        <h3>🛏 Edit Rooms</h3>
-                        <p>Edit rooms with its details and prices.</p>
-                        <a href="roomList?page=edit">Edit Rooms</a>
-                    </div>
-
-                    <div class="dashboard-card">
-                        <h3>🛏 View Rooms</h3>
-                        <p>View and Search rooms with its details and prices.</p>
-                        <a href="roomList?page=viewRoomAdmin">View Rooms</a>
-                    </div>
-
-                    <div class="dashboard-card">
-                        <h3>👥 Create Staff Member Accounts</h3>
-                        <p>Create staff login accounts and permissions.</p>
-                        <a href="staff_member_register.jsp">Create Staff Members</a>
-                    </div>
-
-                    <div class="dashboard-card">
-                        <h3>👤 Manage My Account</h3>
-                        <p>Update my login account and permissions.</p>
-                        <a href="loadAdminForEdit?id=<%= admin.getId() %>">Manage My Account</a>
-                    </div>
-
-                    <div class="dashboard-card">
-                        <h3>❓ Help</h3>
-                        <p>View system usage instructions for employees.</p>
-                        <a href="help.jsp">Open Guide</a>
-                    </div>
-
-                </div>
-
-            </div>
-
         </div>
     </div>
 
