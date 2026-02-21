@@ -32,7 +32,22 @@ public class RoomListServlet extends HttpServlet {
         request.setAttribute("roomList", rooms);
         request.setAttribute("typeList", types);
 
-        request.getRequestDispatcher("edit_room.jsp")
-                .forward(request,response);
+        String page = request.getParameter("page");
+
+        if(page == null) page = "edit";
+
+        switch(page) {
+
+            case "addReservationList":
+                request.getRequestDispatcher("room_list.jsp").forward(request,response);
+                break;
+
+            case "viewRoomAdmin":
+                request.getRequestDispatcher("view_room.jsp").forward(request,response);
+                break;
+
+            default:
+                request.getRequestDispatcher("edit_room.jsp").forward(request,response);
+        }
     }
 }

@@ -1,14 +1,10 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.oceanviewresort.Models.RoomType" %>
 
 <%@ page import="java.sql.*" %>
 <%
     com.oceanviewresort.Models.Admin admin = (com.oceanviewresort.Models.Admin) session.getAttribute("admin");
-%>
-<%
-    if(request.getAttribute("roomTypeList") == null){
-        response.sendRedirect("LoadRoomTypeServlet");
-        return;
-    }
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

@@ -1,8 +1,11 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.oceanviewresort.Models.Room" %>
+<%@ page import="com.oceanviewresort.Models.RoomType" %>
 
 <%@ page import="java.sql.*" %>
 <%
-    com.oceanviewresort.Models.StaffMember staffMember = (com.oceanviewresort.Models.StaffMember) session.getAttribute("staffMember");
+    com.oceanviewresort.Models.Admin admin = (com.oceanviewresort.Models.Admin) session.getAttribute("admin");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -16,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <title>Staff Member Dashboard</title>
+    <title>Edit Room Type</title>
 </head>
 
 <script>
@@ -135,11 +138,11 @@
 
                 <li class="menu-list-item-last"><menu><a class="link-stylings" href="Register.php">Parking</a></menu></li>
 
-                <% if(staffMember == null){ %>
+                <% if(admin == null){ %>
                     <li class="menu-list-item-last"><menu><a class="link-stylings" href="Parking_Area_View.html">Register</a></menu></li>
                     <li class="menu-list-item-last"><menu><a class="link-stylings" href="Login.php">Login</a></menu></li>
                 <% } else { %>
-                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutStaffMember">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
+                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutAdmin">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
                 <% } %>
 
                 <form action="Rooms_Searching.php" method="get" class="menu-list-item-search-bar-main">
@@ -153,7 +156,7 @@
 
     <div class="sidebar">
 
-        <% if(staffMember == null){ %>
+        <% if(admin == null){ %>
 
             <div class="menu-item">
                 <a href="Register.php"><i class="left-menu-icon fas fa-users"></i></a>
@@ -168,7 +171,7 @@
         <% } else { %>
 
             <div class="menu-item">
-                <a href="logoutStaffMember"><i class="left-menu-icon fas fa-sign-out-alt"></i></a>
+                <a href="logoutAdmin"><i class="left-menu-icon fas fa-sign-out-alt"></i></a>
                 <span class="submenusidebar">Logout</span>
             </div>
 
@@ -183,66 +186,98 @@
                 <p class="featured-desc">Welcome to Ocean View Resort, your perfect escape to relaxation and luxury by the sea! Experience tranquility like never before with our beautifully designed rooms, breathtaking ocean views, and world-class hospitality. Whether you are seeking a peaceful getaway or a memorable vacation, Ocean View Resort offers the ideal setting to unwind, refresh, and indulge in comfort.</p>
             </div>
 
-            <h1 class="home-heading">STAFF MEMBER DASHBOARD</h1>
+            <h1 class="home-heading">EDIT ROOM LIST</h1>
 
-            <div class="dashboard-content">
+            <div class="room-table-list-content">
+                <div class="filter-bar">
+                    <form method="get" action="roomList" class="filter-form">
+                        <input type="text"
+                               name="search"
+                               placeholder="Search anything..."
+                               value="<%= request.getParameter("search") != null ? request.getParameter("search") : "" %>">
+                        <select name="type">
+                        <option value="">All Room Types</option>
+                        <%
+                        String selectedType = request.getParameter("type");
+                        List<RoomType> types = (List<RoomType>) request.getAttribute("typeList");
+                        if(types != null){
+                            for(RoomType t : types){
+                                String selected = (selectedType != null && selectedType.equals(String.valueOf(t.getId())))
+                                                  ? "selected" : "";
+                        %>
+                        <option value="<%=t.getId()%>" <%=selected%>><%=t.getName()%></option>
+                        <%
+                            }
+                        }
+                        %>
+                        </select>
+                        <button type="submit">Filter</button>
+                    </form>
+                </div>
 
-                <div class="dashboard-grid">
 
-                    <div class="dashboard-card">
-                        <h3>📋 Add Reservations</h3>
-                        <p>Add guest bookings, check them in</p>
-                        <a href="roomList">Open Panel</a>
-                    </div>
+                <div class="table-wrapper">
+                    <table class="room-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Room Type</th>
+                                <th>Name</th>
+                                <th>Details</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Image</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <%
+                            List<Room> list = (List<Room>) request.getAttribute("roomList");
 
-                    <div class="dashboard-card">
-                        <h3>📋 Edit Checked In Reservations</h3>
-                        <p>View, Search and Edit guest bookings, checked in ones.</p>
-                        <a href="reservations.jsp">Open Panel</a>
-                    </div>
+                            if(list != null && !list.isEmpty()){
+                                for(Room r : list){
 
-                    <div class="dashboard-card">
-                        <h3>📋 View All Reservations</h3>
-                        <p>View and Search guest bookings, check-ins, and check-outs.</p>
-                        <a href="reservations.jsp">Open Panel</a>
-                    </div>
+                                    String base64 = "";
+                                    if(r.getImage()!=null){
+                                        base64 = java.util.Base64.getEncoder().encodeToString(r.getImage());
+                                    }
+                        %>
+                            <tr>
+                                <td><%= r.getId() %></td>
+                                <td><%= r.getRoomType().getName() %></td>
+                                <td><%= r.getName() %></td>
+                                <td><%= r.getDetails() %></td>
+                                <td><%= r.getPrice() %></td>
+                                <td><%= r.getStatus() %></td>
 
-                    <div class="dashboard-card">
-                        <h3>📋 View Checked In Reservations</h3>
-                        <p>View and Search guest bookings, checked in ones</p>
-                        <a href="reservations.jsp">Open Panel</a>
-                    </div>
+                                <td>
+                                    <% if(!base64.equals("")){ %>
+                                        <img src="data:image/jpeg;base64,<%=base64%>" width="80">
+                                    <% } else { %>
+                                        No Image
+                                    <% } %>
+                                </td>
 
-                    <div class="dashboard-card">
-                        <h3>📋 View Checked Out Reservations</h3>
-                        <p>View and Search guest bookings, checked out ones</p>
-                        <a href="reservations.jsp">Open Panel</a>
-                    </div>
-
-                    <div class="dashboard-card">
-                        <h3>📋 Finish Reservations</h3>
-                        <p>Finish guest bookings, check them out.</p>
-                        <a href="reservations.jsp">Open Panel</a>
-                    </div>
-
-                    <div class="dashboard-card">
-                        <h3>🧾 Billing</h3>
-                        <p>Generate invoices and calculate stay costs.</p>
-                        <a href="billing.jsp">Open Billing</a>
-                    </div>
-
-                    <div class="dashboard-card">
-                        <h3>👤 Edit My Account</h3>
-                        <p>Edit my Account's details.</p>
-                        <a href="staff.jsp">Manage Staff</a>
-                    </div>
-
-                    <div class="dashboard-card">
-                        <h3>❓ Help</h3>
-                        <p>View system usage instructions for employees.</p>
-                        <a href="help.jsp">Open Guide</a>
-                    </div>
-
+                                <td>
+                                    <a href="loadRoomForEdit?id=<%= r.getId() %>">
+                                        <button class="edit-btn">Edit</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        <%
+                                }
+                            } else {
+                        %>
+                            <tr>
+                                <td colspan="8" style="text-align:center; padding:20px;">
+                                    No rooms found.
+                                </td>
+                            </tr>
+                        <%
+                            }
+                        %>
+                        </tbody>
+                    </table>
                 </div>
 
             </div>

@@ -205,13 +205,13 @@
                     <div class="dashboard-card">
                         <h3>🏷 Edit Room Types</h3>
                         <p>Edit and examine room categories.</p>
-                        <a href="edit_room_type.jsp">Edit Room Types</a>
+                        <a href="roomTypeList">Edit Room Types</a>
                     </div>
 
                     <div class="dashboard-card">
                         <h3>🏷 View Room Types</h3>
                         <p>View and search room categories.</p>
-                        <a href="view_room_type.jsp">View Room Types</a>
+                        <a href="roomTypeList?page=viewRoomTypeListAdmin">View Room Types</a>
                     </div>
 
                     <div class="dashboard-card">
@@ -223,13 +223,13 @@
                     <div class="dashboard-card">
                         <h3>🛏 Edit Rooms</h3>
                         <p>Edit rooms with its details and prices.</p>
-                        <a href="roomList">Edit Rooms</a>
+                        <a href="roomList?page=edit">Edit Rooms</a>
                     </div>
 
                     <div class="dashboard-card">
                         <h3>🛏 View Rooms</h3>
                         <p>View and Search rooms with its details and prices.</p>
-                        <a href="roomViewList">View Rooms</a>
+                        <a href="roomList?page=viewRoomAdmin">View Rooms</a>
                     </div>
 
                     <div class="dashboard-card">

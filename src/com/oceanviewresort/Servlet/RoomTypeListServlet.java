@@ -34,9 +34,29 @@ public class RoomTypeListServlet extends HttpServlet {
                     .collect(Collectors.toList());
         }
 
-        request.setAttribute("roomTypeList", list);
-        RequestDispatcher dispatcher =
-                request.getRequestDispatcher("edit_room_type.jsp");
-        dispatcher.forward(request, response);
+        String page = request.getParameter("page");
+
+        if(page == null) page = "edit";
+
+        switch(page) {
+
+            case "viewRoomTypeListAdmin":
+                request.setAttribute("roomTypeList", list);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("view_room_type.jsp");
+                dispatcher.forward(request, response);
+                break;
+
+            case "viewRoomTypeListStaff":
+                request.setAttribute("roomTypeList", list);
+                RequestDispatcher dispatcher2 = request.getRequestDispatcher("view_room_type_staff.jsp");
+                dispatcher2.forward(request, response);
+                break;
+
+            default:
+                request.setAttribute("roomTypeList", list);
+                RequestDispatcher dispatcher3 = request.getRequestDispatcher("edit_room_type.jsp");
+                dispatcher3.forward(request, response);
+                break;
+        }
     }
 }

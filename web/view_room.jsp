@@ -19,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <title>Edit Room Type</title>
+    <title>View Room</title>
 </head>
 
 <script>
@@ -190,7 +190,8 @@
 
             <div class="room-table-list-content">
                 <div class="filter-bar">
-                    <form method="get" action="roomViewList" class="filter-form">
+                    <form method="get" action="roomList" class="filter-form">
+                        <input type="hidden" name="page" value="<%= request.getParameter("page") %>">
                         <input type="text"
                                name="search"
                                placeholder="Search anything..."
@@ -232,7 +233,7 @@
 
                         <tbody>
                         <%
-                            List<Room> list = (List<Room>) request.getAttribute("roomViewList");
+                            List<Room> list = (List<Room>) request.getAttribute("roomList");
 
                             if(list != null && !list.isEmpty()){
                                 for(Room r : list){
