@@ -281,39 +281,61 @@
 
     <script>
         const pricePerNight = <%= ((com.oceanviewresort.Models.Room)request.getAttribute("room")).getPrice() %>;
-        
+
         const checkIn = document.getElementById("RoomCheckInDateID");
         const checkOut = document.getElementById("RoomCheckOutDateID");
         const totalField = document.getElementById("TotalAmountPayableID");
-        
-        // block past dates
+
+        // ---------- BLOCK PAST DATES ----------
         let today = new Date().toISOString().split("T")[0];
         checkIn.min = today;
-        checkOut.min = today;
-        
-        // calculate amount
+
+        // disable checkout until checkin selected
+        checkOut.disabled = true;
+
+        // ---------- WHEN CHECK-IN CHANGES ----------
+        checkIn.addEventListener("change", function(){
+
+            if(!checkIn.value) return;
+
+            // enable checkout
+            checkOut.disabled = false;
+
+            // set checkout min = checkin + 1 day
+            let inDate = new Date(checkIn.value);
+            inDate.setDate(inDate.getDate() + 1);
+
+            let minCheckout = inDate.toISOString().split("T")[0];
+            checkOut.min = minCheckout;
+
+            // clear previous checkout
+            checkOut.value = "";
+            totalField.value = "";
+        });
+
+        // ---------- CALCULATE TOTAL ----------
         function calculateTotal(){
-        
+
             if(checkIn.value && checkOut.value){
-            
+
                 let inDate = new Date(checkIn.value);
                 let outDate = new Date(checkOut.value);
-            
+
                 let diffTime = outDate - inDate;
                 let nights = diffTime / (1000*60*60*24);
-            
+
                 if(nights <= 0){
                     alert("Check-out must be after check-in!");
+                    checkOut.value="";
                     totalField.value="";
                     return;
                 }
-            
+
                 let total = nights * pricePerNight;
                 totalField.value = total.toFixed(2);
             }
         }
 
-        checkIn.addEventListener("change", calculateTotal);
         checkOut.addEventListener("change", calculateTotal);
     </script>
 

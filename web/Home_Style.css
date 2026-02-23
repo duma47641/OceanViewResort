@@ -656,6 +656,11 @@ menu {
     border-radius:8px;
 }
 
+.filter-form button:hover {
+    background:#0043a8;
+    cursor: pointer;
+}
+
 @media(max-width:900px){
     .filter-form{
         flex-direction:column;
