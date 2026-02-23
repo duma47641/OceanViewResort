@@ -19,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <title>Edit Room Type</title>
+    <title>Room List To Reserve</title>
 </head>
 
 <script>
@@ -111,7 +111,7 @@
         </div>
         <div class="menu-container">
             <ul class="menu-list">
-                <li class="menu-list-item"><menu><a class="link-stylings" href="Home.jsp">Home</a></menu></li>
+                <li class="menu-list-item"><menu><a class="link-stylings" href="home.jsp">Home</a></menu></li>
                 <li class="menu-list-item"><menu><a class="link-stylings" href="Rooms.jsp">Rooms</a></menu></li>
                 <li class="menu-list-item"><menu class="mobile-dropdown">Room Types <i style="margin-left: 5px;" class="fas fa-caret-down"></i></menu>
                     <ul class="submenu">
@@ -190,7 +190,7 @@
 
             <div class="room-table-list-content">
                 <div class="filter-bar">
-                    <form method="get" action="roomList" class="filter-form">
+                    <form method="get" action="roomListCheckedOut" class="filter-form">
                         <input type="text"
                                name="search"
                                placeholder="Search anything..."
@@ -232,7 +232,7 @@
                         </thead>
                         <tbody>
                         <%
-                            List<Room> list = (List<Room>) request.getAttribute("roomList");
+                            List<Room> list = (List<Room>) request.getAttribute("roomListCheckedOut");
 
                             if(list != null && !list.isEmpty()){
                                 for(Room r : list){
@@ -259,7 +259,7 @@
                                 </td>
 
                                 <td>
-                                    <a href="loadRoomForEdit?id=<%= r.getId() %>">
+                                    <a href="loadRoomForEdit?page=addTheReservation&id=<%= r.getId() %>">
                                         <button class="edit-btn">Reserve</button>
                                     </a>
                                 </td>

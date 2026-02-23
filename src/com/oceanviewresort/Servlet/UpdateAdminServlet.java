@@ -50,7 +50,7 @@ public class UpdateAdminServlet extends HttpServlet {
         boolean updated = dao.updateAdmin(admin);
 
         if(updated){
-            out.println("<script>alert('Admin Account Updated Successfully!'); location='adminList';</script>");
+            out.println("<script>alert('Admin Account Updated Successfully!'); location='admin_dashboard.jsp';</script>");
         }else{
             out.println("<script>alert('Update Failed!'); history.back();</script>");
         }

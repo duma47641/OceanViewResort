@@ -11,4 +11,5 @@ public interface RoomDAO {
     boolean isRoomNameExists(String name);
     List<Room> searchRooms(String keyword, String typeId);
     boolean updateRoom(Room room);
+    List<Room> searchRoomsCheckedOut(String keyword, String typeId);
 }

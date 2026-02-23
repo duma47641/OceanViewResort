@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <title>Login</title>
+    <title>Staff Member Common Login</title>
 </head>
 
 <script>
@@ -104,7 +104,7 @@
         </div>
         <div class="menu-container">
             <ul class="menu-list">
-                <li class="menu-list-item"><menu><a class="link-stylings" href="Home.jsp">Home</a></menu></li>
+                <li class="menu-list-item"><menu><a class="link-stylings" href="home.jsp">Home</a></menu></li>
                 <li class="menu-list-item"><menu><a class="link-stylings" href="Rooms.jsp">Rooms</a></menu></li>
                 <li class="menu-list-item"><menu class="mobile-dropdown">Room Types <i style="margin-left: 5px;" class="fas fa-caret-down"></i></menu>
                     <ul class="submenu">

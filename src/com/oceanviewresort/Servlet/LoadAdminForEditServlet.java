@@ -22,7 +22,15 @@ public class LoadAdminForEditServlet extends HttpServlet {
             return;
         }
 
-        Admin admin = (Admin) session.getAttribute("admin");
+        Admin sessionAdmin = (Admin) session.getAttribute("admin");
+
+        AdminDAO dao = DAOFactory.getAdminDAO();
+        Admin admin = dao.getAdminById(sessionAdmin.getId());
+
+        // update session copy also
+        session.setAttribute("admin", admin);
+
+        request.setAttribute("admin", admin);
 
         // ⭐ THIS LINE IS WHAT YOU ARE MISSING
         request.setAttribute("admin", admin);

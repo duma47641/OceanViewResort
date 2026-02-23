@@ -8,26 +8,29 @@ import com.oceanviewresort.Models.RoomType;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/loadRoomForEdit")
-public class LoadRoomForEditServlet extends HttpServlet {
+@WebServlet("/roomListCheckedOut")
+public class RoomListCheckedOut extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int id = Integer.parseInt(request.getParameter("id"));
+        String keyword = request.getParameter("search");
+        String typeId = request.getParameter("type");
 
         RoomDAO roomDAO = DAOFactory.getRoomDAO();
         RoomTypeDAO typeDAO = DAOFactory.getRoomTypeDAO();
 
-        Room room = roomDAO.getRoomById(id);
+        List<Room> rooms = roomDAO.searchRoomsCheckedOut(keyword, typeId);
         List<RoomType> types = typeDAO.getAllRoomTypes();
 
-        request.setAttribute("room", room);
-        request.setAttribute("roomTypes", types);
+        request.setAttribute("roomListCheckedOut", rooms);
+        request.setAttribute("typeList", types);
 
         String page = request.getParameter("page");
 
@@ -35,16 +38,16 @@ public class LoadRoomForEditServlet extends HttpServlet {
 
         switch(page) {
 
-            case "addReservationsList":
+            case "addReservationList":
                 request.getRequestDispatcher("room_list.jsp").forward(request,response);
                 break;
 
-            case "addTheReservation":
-                request.getRequestDispatcher("reserve_selected_room.jsp").forward(request,response);
+            case "viewRoomAdmin":
+                request.getRequestDispatcher("view_room.jsp").forward(request,response);
                 break;
 
             default:
-                request.getRequestDispatcher("edit_selected_room.jsp").forward(request,response);
+                request.getRequestDispatcher("edit_room.jsp").forward(request,response);
         }
     }
 }

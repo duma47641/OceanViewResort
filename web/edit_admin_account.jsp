@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <title>Register</title>
+    <title>Edit Admin Account</title>
 </head>
 
 <script>
@@ -107,7 +107,7 @@
         </div>
         <div class="menu-container">
             <ul class="menu-list">
-                <li class="menu-list-item"><menu><a class="link-stylings" href="Home.jsp">Home</a></menu></li>
+                <li class="menu-list-item"><menu><a class="link-stylings" href="home.jsp">Home</a></menu></li>
                 <li class="menu-list-item"><menu><a class="link-stylings" href="Rooms.jsp">Rooms</a></menu></li>
                 <li class="menu-list-item"><menu class="mobile-dropdown">Room Types <i style="margin-left: 5px;" class="fas fa-caret-down"></i></menu>
                     <ul class="submenu">
@@ -210,7 +210,7 @@
                         <input style="padding: 14px 40px 14px 14px;" type="password" name="Confirm_Password" id="confirm_Password">
                         <label>Confirm Password</label>
                     </div>
-                    <button class="register-button" style="font-size:24px" type="submit" name="submit">Register</button>
+                    <button class="register-button" style="font-size:24px" type="submit" name="submit">Update Account</button>
                     <div class="signIn-link">
                         <p>Already have an account?<a href="admin_login.jsp" class="signInBtn"> Sign In</a></p>
                     </div>

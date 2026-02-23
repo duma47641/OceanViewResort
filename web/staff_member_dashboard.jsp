@@ -108,7 +108,7 @@
         </div>
         <div class="menu-container">
             <ul class="menu-list">
-                <li class="menu-list-item"><menu><a class="link-stylings" href="Home.jsp">Home</a></menu></li>
+                <li class="menu-list-item"><menu><a class="link-stylings" href="home.jsp">Home</a></menu></li>
                 <li class="menu-list-item"><menu><a class="link-stylings" href="Rooms.jsp">Rooms</a></menu></li>
                 <li class="menu-list-item"><menu class="mobile-dropdown">Room Types <i style="margin-left: 5px;" class="fas fa-caret-down"></i></menu>
                     <ul class="submenu">
@@ -192,7 +192,7 @@
                     <div class="dashboard-card">
                         <h3>📋 Add Reservations</h3>
                         <p>Add guest bookings, check them in</p>
-                        <a href="roomList?page=addReservationList">Open Panel</a>
+                        <a href="roomListCheckedOut?page=addReservationList">Open Panel</a>
                     </div>
 
                     <div class="dashboard-card">

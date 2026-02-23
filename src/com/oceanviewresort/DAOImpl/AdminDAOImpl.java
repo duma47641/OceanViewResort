@@ -82,15 +82,31 @@ public class AdminDAOImpl implements AdminDAO {
         try {
             Connection conn = DBConnection.getInstance().getConnection();
 
-            String sql = "UPDATE admins SET Admin_Full_Name=?, Admin_Email=?, Admin_Password=? WHERE Admin_ID=?";
-            PreparedStatement ps = conn.prepareStatement(sql);
+            String sql;
 
-            String hashedPassword = BCrypt.hashpw(admin.getPassword(), BCrypt.gensalt());
+            PreparedStatement ps;
 
-            ps.setInt(0, admin.getId());
-            ps.setString(1, admin.getFullName());
-            ps.setString(2, admin.getEmail());
-            ps.setString(3, hashedPassword);
+            if(admin.getPassword() == null || admin.getPassword().isEmpty()){
+
+                sql = "UPDATE admins SET Admin_Full_Name=?, Admin_Email=? WHERE Admin_ID=?";
+                ps = conn.prepareStatement(sql);
+
+                ps.setString(1, admin.getFullName());
+                ps.setString(2, admin.getEmail());
+                ps.setInt(3, admin.getId());
+
+            } else {
+
+                sql = "UPDATE admins SET Admin_Full_Name=?, Admin_Email=?, Admin_Password=? WHERE Admin_ID=?";
+                ps = conn.prepareStatement(sql);
+
+                String hashedPassword = BCrypt.hashpw(admin.getPassword(), BCrypt.gensalt());
+
+                ps.setString(1, admin.getFullName());
+                ps.setString(2, admin.getEmail());
+                ps.setString(3, hashedPassword);
+                ps.setInt(4, admin.getId());
+            }
 
             status = ps.executeUpdate() > 0;
 
@@ -113,9 +129,9 @@ public class AdminDAOImpl implements AdminDAO {
             if (rs.next()) {
                 admin = new Admin(
                         rs.getInt("Admin_ID"),
-                        rs.getString("Admin_Email"),
                         rs.getString("Admin_Full_Name"),
-                        rs.getString("AdminPassword")
+                        rs.getString("Admin_Email"),
+                        rs.getString("Admin_Password")
                 );
             }
         } catch (Exception e) {

@@ -1,6 +1,6 @@
 <%@ page import="java.sql.*" %>
 <%
-    com.oceanviewresort.Models.Admin admin = (com.oceanviewresort.Models.Admin) session.getAttribute("admin");
+    com.oceanviewresort.Models.StaffMember staffMember = (com.oceanviewresort.Models.StaffMember) session.getAttribute("staffMember");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <title>Register Staff Member</title>
+    <title>Reserve Selected Room</title>
 </head>
 
 <script>
@@ -134,11 +134,11 @@
 
                 <li class="menu-list-item-last"><menu><a class="link-stylings" href="Register.php">Parking</a></menu></li>
 
-                <% if(admin == null){ %>
+                <% if(staffMember == null){ %>
                     <li class="menu-list-item-last"><menu><a class="link-stylings" href="Parking_Area_View.html">Register</a></menu></li>
                     <li class="menu-list-item-last"><menu><a class="link-stylings" href="Login.php">Login</a></menu></li>
                 <% } else { %>
-                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutAdmin">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
+                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutStaffMember">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
                 <% } %>
 
                 <form action="Rooms_Searching.php" method="get" class="menu-list-item-search-bar-main">
@@ -152,7 +152,7 @@
 
     <div class="sidebar">
 
-        <% if(admin == null){ %>
+        <% if(staffMember == null){ %>
 
             <div class="menu-item">
                 <a href="Register.php"><i class="left-menu-icon fas fa-users"></i></a>
@@ -167,7 +167,7 @@
         <% } else { %>
 
             <div class="menu-item">
-                <a href="logoutAdmin"><i class="left-menu-icon fas fa-sign-out-alt"></i></a>
+                <a href="logoutStaffMember"><i class="left-menu-icon fas fa-sign-out-alt"></i></a>
                 <span class="submenusidebar">Logout</span>
             </div>
 
@@ -182,34 +182,42 @@
                 <p class="featured-desc">Welcome to Ocean View Resort, your perfect escape to relaxation and luxury by the sea! Experience tranquility like never before with our beautifully designed rooms, breathtaking ocean views, and world-class hospitality. Whether you are seeking a peaceful getaway or a memorable vacation, Ocean View Resort offers the ideal setting to unwind, refresh, and indulge in comfort.</p>
             </div>
             <div class="register-form-container">
-                <form id="registration" method="post" action="staffMemberRegister" onsubmit="return formValidation()">
-                    <h1>STAFF MEMBER REGISTRATION</h1>
+                <form id="registration" method="post" action="addReservation" onsubmit="return formValidation()">
+                    <h1>ADMIN REGISTRATION</h1>
+                    <!-- hidden ID -->
+                    
+                    <input type="hidden" name="roomId" value="<%= ((com.oceanviewresort.Models.Room)request.getAttribute("room")).getId() %>">
                     <div class="input-box">
-                        <input style="padding: 14px 40px 14px 14px;" type="text" id="FullName" name="FullName" required>
-                        <label>Staff Member Full Name</label>
-                        <div class="icons-container"><i class='bx bxs-user'></i></div>
+                        <input style="padding: 14px 14px 14px 14px;" type="text" id="GuestFullNameID" name="GuestFullNameName" required>
+                        <label>Guest Full Name</label>
+                        
                     </div>
                     <div class="input-box">
-                        <input style="padding: 14px 40px 14px 14px;" type="Email" id="Email" name="Email" required>
-                        <label>Staff Member Email</label>
-                        <div class="icons-container"><i class='bx bxs-envelope'></i></div>
+                        <textarea style="padding: 14px 14px 14px 14px;" type="text" id="GuestAddressID" name="GuestAddressName" required></textarea>
+                        <label>Guest Address</label>
+                        
                     </div>
                     <div class="input-box">
-                        <div class="icons-container">
-                            <i class="bx bx-show toggle-password" onclick="togglePasswordVisibility('password', this)"></i>
-                        </div>
-                        <input style="padding: 14px 40px 14px 14px;" type="password" name="Password" id="password" required>
-                        <label>Staff Member Password</label>
+                        <input style="padding: 14px 14px 14px 14px;" type="text" id="GuestContactNumberID" name="GuestContactNumberName" required>
+                        <label>Guest Contact Number</label>
+                        
                     </div>
                     <div class="input-box">
-                        <div class="icons-container">
-                            <i class="bx bx-show toggle-password" onclick="togglePasswordVisibility('confirm_Password', this)"></i>
-                        </div>
-                        <input style="padding: 14px 40px 14px 14px;" type="password" name="Confirm_Password" id="confirm_Password" required>
-                        <label>Staff Member Confirm Password</label>
+                        <input style="padding: 14px 14px 14px 14px;" type="date" id="RoomCheckInDateID" name="RoomCheckInDateName" required>
+                        <label class="on-top-labels">Room Check In Date</label>
+                        
                     </div>
-                    <button class="register-button" style="font-size:24px" type="submit" name="submit">Register Staff Member</button>
-
+                    <div class="input-box">
+                        <input style="padding: 14px 14px 14px 14px;" type="date" id="RoomCheckOutDateID" name="RoomCheckOutDateName" required>
+                        <label class="on-top-labels">Room Check Out Date</label>
+                        
+                    </div>
+                    <div class="input-box">
+                        <input style="padding: 14px 14px 14px 14px;" type="text" id="TotalAmountPayableID" name="TotalAmountPayableName" required>
+                        <label>Total Amount Payable</label>
+                        
+                    </div>
+                    <button class="register-button" style="font-size:24px" type="submit" name="submit">Add Reservation</button>
                 </form>
             </div>
         </div>
@@ -269,6 +277,44 @@
         }
         return true;
     }
+    </script>
+
+    <script>
+        const pricePerNight = <%= ((com.oceanviewresort.Models.Room)request.getAttribute("room")).getPrice() %>;
+        
+        const checkIn = document.getElementById("RoomCheckInDateID");
+        const checkOut = document.getElementById("RoomCheckOutDateID");
+        const totalField = document.getElementById("TotalAmountPayableID");
+        
+        // block past dates
+        let today = new Date().toISOString().split("T")[0];
+        checkIn.min = today;
+        checkOut.min = today;
+        
+        // calculate amount
+        function calculateTotal(){
+        
+            if(checkIn.value && checkOut.value){
+            
+                let inDate = new Date(checkIn.value);
+                let outDate = new Date(checkOut.value);
+            
+                let diffTime = outDate - inDate;
+                let nights = diffTime / (1000*60*60*24);
+            
+                if(nights <= 0){
+                    alert("Check-out must be after check-in!");
+                    totalField.value="";
+                    return;
+                }
+            
+                let total = nights * pricePerNight;
+                totalField.value = total.toFixed(2);
+            }
+        }
+
+        checkIn.addEventListener("change", calculateTotal);
+        checkOut.addEventListener("change", calculateTotal);
     </script>
 
 </body>
