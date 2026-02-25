@@ -48,7 +48,7 @@ public class AddReservationServlet extends HttpServlet {
             ReservationDAO dao = DAOFactory.getReservationDAO();
 
             if(dao.addReservation(r)){
-                out.println("<script>alert('Reservation Added Successfully!'); location='reservationList';</script>");
+                out.println("<script>alert('Reservation Added Successfully!'); location='staff_member_dashboard.jsp';</script>");
             }else{
                 out.println("<script>alert('Error Adding Reservation!'); history.back();</script>");
             }

@@ -39,7 +39,7 @@ public class RoomListCheckedOutServlet extends HttpServlet {
         switch(page) {
 
             case "addReservationList":
-                request.getRequestDispatcher("room_list.jsp").forward(request,response);
+                request.getRequestDispatcher("edit_room.jsp").forward(request,response);
                 break;
 
             case "viewRoomAdmin":
@@ -47,7 +47,7 @@ public class RoomListCheckedOutServlet extends HttpServlet {
                 break;
 
             default:
-                request.getRequestDispatcher("edit_room.jsp").forward(request,response);
+                request.getRequestDispatcher("room_list.jsp").forward(request,response);
         }
     }
 }

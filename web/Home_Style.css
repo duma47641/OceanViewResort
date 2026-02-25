@@ -558,8 +558,23 @@ menu {
     transition:.2s;
 }
 
+.room-table-list-content .edit-btn2{
+    padding:8px 16px;
+    background:#871978;
+    color:white;
+    text-decoration:none;
+    border-radius:6px;
+    font-size:14px;
+    transition:.2s;
+}
+
 .room-table-list-content .edit-btn:hover{
-    background:#157347;
+    background:#034727;
+    cursor: pointer;
+}
+
+.room-table-list-content .edit-btn2:hover{
+    background:#47033e;
     cursor: pointer;
 }
 

@@ -58,7 +58,7 @@ public class StaffMemberRegisterServlet extends HttpServlet {
 
         if (success) {
             out.println("<script>");
-            out.println("alert('Registration Successful!');");
+            out.println("alert('Staff Member Registration Successful!');");
             out.println("location='admin_dashboard.jsp';");
             out.println("</script>");
         } else {

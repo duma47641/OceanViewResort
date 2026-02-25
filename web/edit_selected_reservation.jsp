@@ -1,6 +1,6 @@
 <%@ page import="java.sql.*" %>
 <%
-    com.oceanviewresort.Models.Admin admin = (com.oceanviewresort.Models.Admin) session.getAttribute("admin");
+    com.oceanviewresort.Models.StaffMember staffMember = (com.oceanviewresort.Models.StaffMember) session.getAttribute("staffMember");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -87,18 +87,11 @@
 </script>
 
 <script>
-    function togglePasswordVisibility(fieldId, icon) {
-        const input = document.getElementById(fieldId);
-
-        if (input.type === "password") {
-            input.type = "text";
-            icon.className = "bx bx-hide toggle-password";
-        } else {
-            input.type = "password";
-            icon.className = "bx bx-show toggle-password";
-        }
+    function confirmLogout() {
+        return confirm("Are you sure you want to logout?");
     }
 </script>
+
 
 <body>
     <div class="navbar">
@@ -134,11 +127,11 @@
 
                 <li class="menu-list-item-last"><menu><a class="link-stylings" href="Register.php">Parking</a></menu></li>
 
-                <% if(admin == null){ %>
+                <% if(staffMember == null){ %>
                     <li class="menu-list-item-last"><menu><a class="link-stylings" href="Parking_Area_View.html">Register</a></menu></li>
                     <li class="menu-list-item-last"><menu><a class="link-stylings" href="Login.php">Login</a></menu></li>
                 <% } else { %>
-                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutAdmin">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
+                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutStaffMember" onclick="return confirmLogout()">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
                 <% } %>
 
                 <form action="Rooms_Searching.php" method="get" class="menu-list-item-search-bar-main">
@@ -152,7 +145,7 @@
 
     <div class="sidebar">
 
-        <% if(admin == null){ %>
+        <% if(staffMember == null){ %>
 
             <div class="menu-item">
                 <a href="Register.php"><i class="left-menu-icon fas fa-users"></i></a>
@@ -167,7 +160,7 @@
         <% } else { %>
 
             <div class="menu-item">
-                <a href="logoutAdmin"><i class="left-menu-icon fas fa-sign-out-alt"></i></a>
+                <a href="logoutStaffMember" onclick="return confirmLogout()"><i class="left-menu-icon fas fa-sign-out-alt"></i></a>
                 <span class="submenusidebar">Logout</span>
             </div>
 
@@ -188,7 +181,7 @@
                 <%
                     Reservation reservation = (Reservation) request.getAttribute("reservation");
                     Room room = reservation.getRoom();
-                    StaffMember staffMember = reservation.getStaffMember();
+                    StaffMember staffMember1 = reservation.getStaffMember();
                 %>
                 <form id="registration" method="post" action="updateReservation" onsubmit="return formValidation()" enctype="multipart/form-data">
                     <h1>UPDATE RESERVATION</h1>
@@ -197,7 +190,7 @@
                         <label class="on-top-labels">Reservation ID</label>
                     </div>
                     <div class="input-box">
-                        <input type="number" id="StaffMemberIDID" name="StaffMemberIDName" value="<%= staffMember != null ? staffMember.getId() : "" %>" required readonly>
+                        <input type="number" id="StaffMemberIDID" name="StaffMemberIDName" value="<%= staffMember1 != null ? staffMember.getId() : "" %>" required readonly>
                         <label class="on-top-labels">Staff Member ID</label>
                     </div>
                     <div class="input-box">

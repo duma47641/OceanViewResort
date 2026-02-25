@@ -48,7 +48,7 @@ public class UpdateRoomTypeServlet extends HttpServlet {
         boolean updated = dao.updateRoomType(roomType);
 
         if(updated){
-            out.println("<script>alert('Room Type Updated Successfully!'); location='roomTypeList';</script>");
+            out.println("<script>alert('Room Type Updated Successfully!'); location='admin_dashboard.jsp';</script>");
         }else{
             out.println("<script>alert('Update Failed!'); history.back();</script>");
         }

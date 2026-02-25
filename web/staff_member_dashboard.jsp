@@ -192,7 +192,7 @@
                     <div class="dashboard-card">
                         <h3>📋 Add Reservations</h3>
                         <p>Add guest bookings, check them in.</p>
-                        <a href="roomListCheckedOut?page=addReservationList">Add Reservations</a>
+                        <a href="roomListCheckedOut?page=edit">Add Reservations</a>
                     </div>
 
                     <div class="dashboard-card">
@@ -204,13 +204,13 @@
                     <div class="dashboard-card">
                         <h3>📋 View and Check-Out All Reservations</h3>
                         <p>View and Search guest bookings, check-ins, and check-outs. Check-Out the Reservations Finally.</p>
-                        <a href="reservationList">View/Check-Out Reservations</a>
+                        <a href="reservationList?page=edit">View/Check-Out Reservations</a>
                     </div>
 
                     <div class="dashboard-card">
                         <h3>🧾 Billing</h3>
                         <p>Generate invoices and calculate stay costs.</p>
-                        <a href="billing.jsp">Open Billing</a>
+                        <a href="reservationList?page=printReservationStaffMember">Open Billing</a>
                     </div>
 
                     <div class="dashboard-card">

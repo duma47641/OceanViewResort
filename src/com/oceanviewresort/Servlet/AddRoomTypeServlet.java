@@ -49,7 +49,7 @@ public class AddRoomTypeServlet extends HttpServlet {
 
             out.println("<script>");
             out.println("alert('Room Type Added Successfully!');");
-            out.println("location='add_room_type.jsp';");
+            out.println("location='admin_dashboard.jsp';");
             out.println("</script>");
 
         } else {

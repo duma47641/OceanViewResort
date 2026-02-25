@@ -49,8 +49,8 @@ public class ReservationListServlet extends HttpServlet {
                 request.getRequestDispatcher("room_list.jsp").forward(request,response);
                 break;
 
-            case "viewRoomAdmin":
-                request.getRequestDispatcher("view_room.jsp").forward(request,response);
+            case "printReservationStaffMember":
+                request.getRequestDispatcher("all_print_reservation_list.jsp").forward(request,response);
                 break;
 
             default:

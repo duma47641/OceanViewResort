@@ -67,7 +67,7 @@ public class AddRoomServlet extends HttpServlet {
         boolean success = dao.addRoom(room);
 
         if (success)
-            out.println("<script>alert('Room Added Successfully!'); location='add_room.jsp';</script>");
+            out.println("<script>alert('Room Added Successfully!'); location='admin_dashboard.jsp';</script>");
         else
             out.println("<script>alert('Error adding room!'); location='add_room.jsp';</script>");
     }

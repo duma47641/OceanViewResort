@@ -1,5 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.oceanviewresort.Models.Reservation" %>
+<%@ page import="com.oceanviewresort.Models.Room" %>
 <%@ page import="com.oceanviewresort.Models.RoomType" %>
 
 <%@ page import="java.sql.*" %>
@@ -18,7 +20,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <title>Edit Room Type</title>
+    <title>Print All Reservations</title>
 </head>
 
 <script>
@@ -90,8 +92,16 @@
 </script>
 
 <script>
-    function confirmLogout() {
-        return confirm("Are you sure you want to logout?");
+    function togglePasswordVisibility(fieldId, icon) {
+        const input = document.getElementById(fieldId);
+
+        if (input.type === "password") {
+            input.type = "text";
+            icon.className = "bx bx-hide toggle-password";
+        } else {
+            input.type = "password";
+            icon.className = "bx bx-show toggle-password";
+        }
     }
 </script>
 
@@ -133,7 +143,7 @@
                     <li class="menu-list-item-last"><menu><a class="link-stylings" href="Parking_Area_View.html">Register</a></menu></li>
                     <li class="menu-list-item-last"><menu><a class="link-stylings" href="Login.php">Login</a></menu></li>
                 <% } else { %>
-                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutAdmin" onclick="return confirmLogout()">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
+                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutAdmin">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
                 <% } %>
 
                 <form action="Rooms_Searching.php" method="get" class="menu-list-item-search-bar-main">
@@ -162,7 +172,7 @@
         <% } else { %>
 
             <div class="menu-item">
-                <a href="logoutAdmin" onclick="return confirmLogout()"><i class="left-menu-icon fas fa-sign-out-alt"></i></a>
+                <a href="logoutAdmin"><i class="left-menu-icon fas fa-sign-out-alt"></i></a>
                 <span class="submenusidebar">Logout</span>
             </div>
 
@@ -177,62 +187,147 @@
                 <p class="featured-desc">Welcome to Ocean View Resort, your perfect escape to relaxation and luxury by the sea! Experience tranquility like never before with our beautifully designed rooms, breathtaking ocean views, and world-class hospitality. Whether you are seeking a peaceful getaway or a memorable vacation, Ocean View Resort offers the ideal setting to unwind, refresh, and indulge in comfort.</p>
             </div>
 
-            <h1 class="home-heading">EDIT ROOM TYPE LIST</h1>
+            <h1 class="home-heading">EDIT ROOM LIST</h1>
 
             <div class="room-table-list-content">
-                <div class="search-bar-wrapper">
-                    <form method="get" action="roomTypeList" class="search-form">
+                <div class="filter-bar">
+                    <form method="get" action="reservationList?page=printReservationStaffMember&" class="filter-form">
                         <input type="text"
                                name="search"
-                               placeholder="Search room type..."
+                               placeholder="Search anything..."
                                value="<%= request.getParameter("search") != null ? request.getParameter("search") : "" %>">
-                        <button type="submit">Search</button>
+                        <select name="type">
+                            <option value="">All Room Types</option>
+                            <%
+                            String selectedType = request.getParameter("type");
+                            List<RoomType> types = (List<RoomType>) request.getAttribute("typeList");
+                            if(types != null){
+                                for(RoomType t : types){
+                                    String selected = (selectedType != null && selectedType.equals(String.valueOf(t.getId())))
+                                                      ? "selected" : "";
+                            %>
+                            <option value="<%=t.getId()%>" <%=selected%>><%=t.getName()%></option>
+                            <%
+                                }
+                            }
+                            %>
+                        </select>
+                        <select name="status">
+                            <option value="">All Status</option>
+
+                            <option value="Checked-In"
+                            <%= "Checked-In".equals(request.getParameter("status")) ? "selected" : "" %>>
+                            Checked-In
+                            </option>
+
+                            <option value="Checked-Out"
+                            <%= "Checked-Out".equals(request.getParameter("status")) ? "selected" : "" %>>
+                            Checked-Out
+                            </option>
+
+                        </select>
+                        <button type="submit">Filter</button>
                     </form>
                 </div>
 
+
                 <div class="table-wrapper">
-                
                     <table class="room-table">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Room Type Name</th>
+                                <th>Reservation ID</th>
+                                <th>Staff Member ID</th>
+                                <th>Room ID</th>
+                                <th>Room Type ID</th>
+                                <th>Room Type</th>
+                                <th>Room Name</th>
+                                <th>Room Details</th>
+                                <th>Room Price</th>
+                                <th>Room Status</th>
+                                <th>Room Image</th>
+                                <th>Guest Full Name</th>
+                                <th>Guest Address</th>
+                                <th>Guest Contact Number</th>
+                                <th>Check In Date</th>
+                                <th>Check Out Date</th>
+                                <th>Total Amount Paid</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <%
-                        List<RoomType> list = (List<RoomType>) request.getAttribute("roomTypeList");
-                        
-                        if(list != null && !list.isEmpty()){
-                            for(RoomType r : list){
-                        %>
-                                <tr>
-                                    <td><%= r.getId() %></td>
-                                    <td><%= r.getName() %></td>
-                                    <td>
-                                        <a href="loadRoomTypeForEdit?id=<%= r.getId() %>">
-                                            <button class="edit-btn">Edit</button>
-                                        </a>
-                                    </td>
-                                </tr>
-                        <%
-                            }
-                        }else{
-                        %>
-                                <tr>
-                                    <td colspan="3" style="text-align:center; padding:20px;">
-                                        No room types found.
-                                    </td>
-                                </tr>
-                        <%
-                        }
-                        %>
-                        </tbody>
-                    
-                    </table>
+                            <%
+                            List<Reservation> list = (List<Reservation>) request.getAttribute("reservationList");
 
+                            if(list != null && !list.isEmpty()){
+                                for(Reservation res : list){
+
+                                    Room r = res.getRoom();
+
+                                    String base64 = "";
+                                    if(r.getImage()!=null){
+                                        base64 = java.util.Base64.getEncoder().encodeToString(r.getImage());
+                                    }
+                            %>
+
+                            <tr>
+                            <td><%= res.getId() %></td>
+                            <td><%= res.getStaffMember().getId() %></td>
+                            <td><%= r.getId() %></td>
+                            <td><%= r.getRoomType().getId() %></td>
+                            <td><%= r.getRoomType().getName() %></td>
+                            <td><%= r.getName() %></td>
+                            <td><%= r.getDetails() %></td>
+                            <td><%= r.getPrice() %></td>
+                            <td><%= r.getStatus() %></td>
+
+                            <td>
+                                <% if(!base64.equals("")){ %>
+                                <img src="data:image/jpeg;base64,<%=base64%>" width="80">
+                                <% } else { %>
+                                No Image
+                                <% } %>
+                            </td>
+
+                            <td><%= res.getGuestFullName() %></td>
+                            <td><%= res.getGuestAddress() %></td>
+                            <td><%= res.getGuestContactNumber() %></td>
+                            <td><%= res.getCheckInDate() %></td>
+                            <td><%= res.getCheckOutDate() %></td>
+                            <td><%= res.getTotalAmount() %></td>
+
+                            <td>
+                            <% if("Checked-In".equalsIgnoreCase(r.getStatus())){ %>
+                                <form action="printReservation" method="post" style="display:inline;">
+                                    <input type="hidden" name="reservationId" value="<%= res.getId() %>">
+                                    <button type="submit" class="edit-btn">Print Checked-In Reservation Bill</button>
+                                </form>
+                            <% } else { %>
+                                <form action="printReservation" method="post" style="display:inline;">
+                                    <input type="hidden" name="reservationId" value="<%= res.getId() %>">
+                                    <button type="submit" class="edit-btn2">Print Checked-Out Reservation Bill</button>
+                                </form>
+                            <% } %>
+                            </td>
+                            </tr>
+
+                            <%
+                                }
+                            }else{
+                            %>
+
+                            <tr>
+                            <td colspan="17" style="text-align:center; padding:20px;">
+                            No reservations found.
+                            </td>
+                            </tr>
+
+                            <%
+                            }
+                            %>
+                        </tbody>
+                    </table>
                 </div>
+
             </div>
 
 

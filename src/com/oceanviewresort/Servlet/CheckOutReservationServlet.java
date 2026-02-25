@@ -26,7 +26,7 @@ public class CheckOutReservationServlet extends HttpServlet {
         boolean updated = dao.updateRoomToCheckedOut(roomId);
 
         if(updated){
-            out.println("<script>alert('Reservation Room Status Updated Successfully!'); location='staff_member_dashboard.jsp';</script>");
+            out.println("<script>alert('Reservation Room Status Checked-Out Successfully!'); location='staff_member_dashboard.jsp';</script>");
         }else{
             response.getWriter().println("<script>alert('Check-out failed!'); history.back();</script>");
         }

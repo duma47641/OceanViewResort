@@ -100,6 +100,13 @@
     }
 </script>
 
+<script>
+    function confirmLogout() {
+        return confirm("Are you sure you want to logout?");
+    }
+</script>
+
+
 <body>
     <div class="navbar">
         <div class="logo-container">
@@ -138,7 +145,7 @@
                     <li class="menu-list-item-last"><menu><a class="link-stylings" href="Parking_Area_View.html">Register</a></menu></li>
                     <li class="menu-list-item-last"><menu><a class="link-stylings" href="Login.php">Login</a></menu></li>
                 <% } else { %>
-                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutStaffMember">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
+                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutStaffMember" onclick="return confirmLogout()">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
                 <% } %>
 
                 <form action="Rooms_Searching.php" method="get" class="menu-list-item-search-bar-main">
@@ -167,7 +174,7 @@
         <% } else { %>
 
             <div class="menu-item">
-                <a href="logoutStaffMember"><i class="left-menu-icon fas fa-sign-out-alt"></i></a>
+                <a href="logoutStaffMember" onclick="return confirmLogout()"><i class="left-menu-icon fas fa-sign-out-alt"></i></a>
                 <span class="submenusidebar">Logout</span>
             </div>
 
