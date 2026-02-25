@@ -1,9 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.oceanviewresort.Models.Reservation" %>
-<%@ page import="com.oceanviewresort.Models.Room" %>
-<%@ page import="com.oceanviewresort.Models.RoomType" %>
-
 <%@ page import="java.sql.*" %>
 <%
     com.oceanviewresort.Models.Admin admin = (com.oceanviewresort.Models.Admin) session.getAttribute("admin");
@@ -17,10 +11,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Home_Style.css">
+    <link rel="stylesheet" href="Register.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <title>All Reservations</title>
+    <title>Edit Selected Reservation</title>
 </head>
 
 <script>
@@ -186,147 +181,56 @@
                 <img class="featured-title-image" src="img/Ocean_View_Resort_Logo.png" alt="">
                 <p class="featured-desc">Welcome to Ocean View Resort, your perfect escape to relaxation and luxury by the sea! Experience tranquility like never before with our beautifully designed rooms, breathtaking ocean views, and world-class hospitality. Whether you are seeking a peaceful getaway or a memorable vacation, Ocean View Resort offers the ideal setting to unwind, refresh, and indulge in comfort.</p>
             </div>
-
-            <h1 class="home-heading">EDIT ROOM LIST</h1>
-
-            <div class="room-table-list-content">
-                <div class="filter-bar">
-                    <form method="get" action="reservationList" class="filter-form">
-                        <input type="text"
-                               name="search"
-                               placeholder="Search anything..."
-                               value="<%= request.getParameter("search") != null ? request.getParameter("search") : "" %>">
-                        <select name="type">
-                            <option value="">All Room Types</option>
-                            <%
-                            String selectedType = request.getParameter("type");
-                            List<RoomType> types = (List<RoomType>) request.getAttribute("typeList");
-                            if(types != null){
-                                for(RoomType t : types){
-                                    String selected = (selectedType != null && selectedType.equals(String.valueOf(t.getId())))
-                                                      ? "selected" : "";
-                            %>
-                            <option value="<%=t.getId()%>" <%=selected%>><%=t.getName()%></option>
-                            <%
-                                }
-                            }
-                            %>
-                        </select>
-                        <select name="status">
-                            <option value="">All Status</option>
-
-                            <option value="Checked-In"
-                            <%= "Checked-In".equals(request.getParameter("status")) ? "selected" : "" %>>
-                            Checked-In
-                            </option>
-
-                            <option value="Checked-Out"
-                            <%= "Checked-Out".equals(request.getParameter("status")) ? "selected" : "" %>>
-                            Checked-Out
-                            </option>
-
-                        </select>
-                        <button type="submit">Filter</button>
-                    </form>
-                </div>
-
-
-                <div class="table-wrapper">
-                    <table class="room-table">
-                        <thead>
-                            <tr>
-                                <th>Reservation ID</th>
-                                <th>Staff Member ID</th>
-                                <th>Room ID</th>
-                                <th>Room Type ID</th>
-                                <th>Room Type</th>
-                                <th>Room Name</th>
-                                <th>Room Details</th>
-                                <th>Room Price</th>
-                                <th>Room Status</th>
-                                <th>Room Image</th>
-                                <th>Guest Full Name</th>
-                                <th>Guest Address</th>
-                                <th>Guest Contact Number</th>
-                                <th>Check In Date</th>
-                                <th>Check Out Date</th>
-                                <th>Total Amount Paid</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <%
-                            List<Reservation> list = (List<Reservation>) request.getAttribute("reservationList");
-
-                            if(list != null && !list.isEmpty()){
-                                for(Reservation res : list){
-
-                                    Room r = res.getRoom();
-
-                                    String base64 = "";
-                                    if(r.getImage()!=null){
-                                        base64 = java.util.Base64.getEncoder().encodeToString(r.getImage());
-                                    }
-                            %>
-
-                            <tr>
-                            <td><%= res.getId() %></td>
-                            <td><%= res.getStaffMember().getId() %></td>
-                            <td><%= r.getId() %></td>
-                            <td><%= r.getRoomType().getId() %></td>
-                            <td><%= r.getRoomType().getName() %></td>
-                            <td><%= r.getName() %></td>
-                            <td><%= r.getDetails() %></td>
-                            <td><%= r.getPrice() %></td>
-                            <td><%= r.getStatus() %></td>
-
-                            <td>
-                                <% if(!base64.equals("")){ %>
-                                <img src="data:image/jpeg;base64,<%=base64%>" width="80">
-                                <% } else { %>
-                                No Image
-                                <% } %>
-                            </td>
-
-                            <td><%= res.getGuestFullName() %></td>
-                            <td><%= res.getGuestAddress() %></td>
-                            <td><%= res.getGuestContactNumber() %></td>
-                            <td><%= res.getCheckInDate() %></td>
-                            <td><%= res.getCheckOutDate() %></td>
-                            <td><%= res.getTotalAmount() %></td>
-
-                            <td>
-                            <% if("Checked-In".equalsIgnoreCase(r.getStatus())){ %>
-                                <a href="deleteReservation?id=<%= res.getId() %>">
-                                    <button class="edit-btn">Check Out</button>
-                                </a>
-                            <% } else { %>
-                                <button class="edit-btn" disabled style="opacity:0.5;">Check Out Reservation</button>
-                            <% } %>
-                            </td>
-                            </tr>
-
-                            <%
-                                }
-                            }else{
-                            %>
-
-                            <tr>
-                            <td colspan="17" style="text-align:center; padding:20px;">
-                            No reservations found.
-                            </td>
-                            </tr>
-
-                            <%
-                            }
-                            %>
-                        </tbody>
-                    </table>
-                </div>
-
+            <div class="register-form-container">
+                <%@ page import="com.oceanviewresort.Models.Reservation" %>
+                <%@ page import="com.oceanviewresort.Models.StaffMember" %>
+                <%@ page import="com.oceanviewresort.Models.Room" %>
+                <%
+                    Reservation reservation = (Reservation) request.getAttribute("reservation");
+                    Room room = reservation.getRoom();
+                    StaffMember staffMember = reservation.getStaffMember();
+                %>
+                <form id="registration" method="post" action="updateReservation" onsubmit="return formValidation()" enctype="multipart/form-data">
+                    <h1>UPDATE RESERVATION</h1>
+                    <div class="input-box">
+                        <input type="number" id="ReservationIDID" name="ReservationIDName" value="<%= reservation.getId() %>" required readonly>
+                        <label class="on-top-labels">Reservation ID</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="number" id="StaffMemberIDID" name="StaffMemberIDName" value="<%= staffMember != null ? staffMember.getId() : "" %>" required readonly>
+                        <label class="on-top-labels">Staff Member ID</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="number" id="RoomIDID" name="RoomIDName" value="<%= room != null ? room.getId() : "" %>" required readonly>
+                        <label class="on-top-labels">Room ID</label>
+                    </div>
+                    <div class="input-box">
+                        <input style="padding: 14px 14px 14px 14px;" type="text" id="GuestFullNameID" name="GuestFullNameName" value="<%= reservation != null ? reservation.getGuestFullName() : "" %>" required>
+                        <label>Guest Full Name</label>
+                    </div>
+                    <div class="input-box">
+                        <textarea style="padding: 14px 14px 14px 14px;" type="text" id="GuestAddressID" name="GuestAddressName" required><%= reservation != null ? reservation.getGuestAddress() : "" %></textarea>
+                        <label>Guest Address</label>
+                    </div>
+                    <div class="input-box">
+                        <input style="padding: 14px 14px 14px 14px;" type="text" id="GuestContactNumberID" name="GuestContactNumberName" value="<%= reservation != null ? reservation.getGuestContactNumber() : "" %>" required>
+                        <label>Guest Contact Number</label>
+                    </div>
+                    <div class="input-box">
+                        <input style="padding: 14px 14px 14px 14px;" type="date" id="RoomCheckInDateID" name="RoomCheckInDateName" value="<%= reservation != null ? reservation.getCheckInDate() : "" %>" required readonly>
+                        <label class="on-top-labels">Room Check In Date</label>
+                    </div>
+                    <div class="input-box">
+                        <input style="padding: 14px 14px 14px 14px;" type="date" id="RoomCheckOutDateID" name="RoomCheckOutDateName" value="<%= reservation != null ? reservation.getCheckOutDate() : "" %>" required>
+                        <label class="on-top-labels">Room Check Out Date</label>
+                    </div>
+                    <div class="input-box">
+                        <input style="padding: 14px 14px 14px 14px;" type="number" id="TotalAmountPayableID" name="TotalAmountPayableName" value="<%= reservation != null ? reservation.getTotalAmount() : "" %>" required readonly>
+                        <label class="on-top-labels">Total Amount Payable</label>
+                    </div>
+                    <button class="register-button" style="font-size:24px" type="submit" name="submit">Update Reservation</button>
+                </form>
             </div>
-
-
         </div>
     </div>
 
@@ -370,7 +274,7 @@
 
     <script>
         function formValidation() {
-        const name = document.getElementById("FullName").value;
+        const name = document.getElementById("GuestFullNameName").value;
         const password = document.getElementById("password").value;
         const confirm = document.getElementById("confirm_Password").value;
         const nameRegex = /^[A-Za-z ]+$/;
@@ -384,6 +288,51 @@
         }
         return true;
     }
+    </script>
+
+    <script>
+        // Room price from server
+        const pricePerNight = <%= room.getPrice() %>;
+    
+        const checkIn  = document.getElementById("RoomCheckInDateID");
+        const checkOut = document.getElementById("RoomCheckOutDateID");
+        const totalField = document.getElementById("TotalAmountPayableID");
+    
+        // -----------------------------
+        // SET MIN CHECK-OUT DATE
+        // -----------------------------
+        if (checkIn.value) {
+            let inDate = new Date(checkIn.value);
+            inDate.setDate(inDate.getDate() + 1); // checkout = next day minimum
+            checkOut.min = inDate.toISOString().split("T")[0];
+        }
+    
+        // -----------------------------
+        // CALCULATE TOTAL WHEN CHECK-OUT CHANGES
+        // -----------------------------
+        checkOut.addEventListener("change", function () {
+        
+            if (!checkOut.value) {
+                totalField.value = "";
+                return;
+            }
+        
+            let inDate  = new Date(checkIn.value);
+            let outDate = new Date(checkOut.value);
+        
+            let diffTime = outDate - inDate;
+            let nights = diffTime / (1000 * 60 * 60 * 24);
+        
+            if (nights <= 0) {
+                alert("Check-out date must be after check-in date.");
+                checkOut.value = "";
+                totalField.value = "";
+                return;
+            }
+        
+            let total = nights * pricePerNight;
+            totalField.value = total.toFixed(2);
+        });
     </script>
 
 </body>

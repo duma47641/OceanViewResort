@@ -188,4 +188,196 @@ public class ReservationDAOImpl implements ReservationDAO {
 
         return list;
     }
+
+    @Override
+    public List<Reservation> searchAllCheckedInReservations(String keyword, String typeId, String roomId) {
+
+        List<Reservation> list = new ArrayList<>();
+
+        try{
+            Connection conn = DBConnection.getInstance().getConnection();
+
+            String sql =
+                    "SELECT res.*, r.*, rt.* " +
+                            "FROM reservations res " +
+                            "INNER JOIN rooms r ON res.Room_ID = r.Room_ID " +
+                            "INNER JOIN room_types rt ON r.Room_Type_ID = rt.Room_Type_ID " +
+                            "WHERE 1=1 AND r.Room_Status='Checked-In'";
+
+            // ---------- KEYWORD SEARCH ----------
+            if(keyword != null && !keyword.trim().isEmpty()){
+                sql += " AND ( " +
+                        "CAST(res.Reservation_ID AS CHAR) LIKE ? OR " +
+                        "CAST(res.Staff_Member_ID AS CHAR) LIKE ? OR " +
+                        "res.Guest_Full_Name LIKE ? OR " +
+                        "res.Guest_Address LIKE ? OR " +
+                        "res.Guest_Contact_Number LIKE ? OR " +
+                        "CAST(res.Room_Check_In_Date AS CHAR) LIKE ? OR " +
+                        "CAST(res.Room_Check_Out_Date AS CHAR) LIKE ? OR " +
+                        "CAST(res.Total_Amount_Payable AS CHAR) LIKE ? OR " +
+
+                        "CAST(r.Room_ID AS CHAR) LIKE ? OR " +
+                        "r.Room_Name LIKE ? OR " +
+                        "r.Room_Details LIKE ? OR " +
+                        "CAST(r.Room_Price AS CHAR) LIKE ? OR " +
+                        "r.Room_Status LIKE ? OR " +
+
+                        "CAST(rt.Room_Type_ID AS CHAR) LIKE ? OR " +
+                        "rt.Room_Type_Name LIKE ? " +
+                        ") ";
+            }
+
+            // ---------- TYPE FILTER ----------
+            if(typeId != null && !typeId.isEmpty()){
+                sql += " AND rt.Room_Type_ID = ? ";
+            }
+
+            // ---------- ROOM FILTER ----------
+            if(roomId != null && !roomId.isEmpty()){
+                sql += " AND r.Room_ID = ? ";
+            }
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            int index = 1;
+
+            // ---------- SET KEYWORD VALUES ----------
+            if(keyword != null && !keyword.trim().isEmpty()){
+                String key = "%" + keyword.trim() + "%";
+
+                for(int i=0;i<15;i++){
+                    ps.setString(index++, key);
+                }
+            }
+
+            // ---------- SET TYPE ----------
+            if(typeId != null && !typeId.isEmpty()){
+                ps.setInt(index++, Integer.parseInt(typeId));
+            }
+
+            // ---------- SET ROOM ----------
+            if(roomId != null && !roomId.isEmpty()){
+                ps.setInt(index++, Integer.parseInt(roomId));
+            }
+
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+
+                RoomType type = new RoomType(
+                        rs.getInt("Room_Type_ID"),
+                        rs.getString("Room_Type_Name")
+                );
+
+                Room room = new Room(
+                        rs.getInt("Room_ID"),
+                        type,
+                        rs.getBytes("Room_Image"),
+                        rs.getString("Room_Name"),
+                        rs.getString("Room_Details"),
+                        rs.getDouble("Room_Price"),
+                        rs.getString("Room_Status")
+                );
+
+                StaffMember staffMember = new StaffMember(
+                        rs.getInt("Staff_Member_ID")
+                );
+
+                Reservation reservation = new Reservation();
+
+                reservation.setId(rs.getInt("Reservation_ID"));
+                reservation.setStaffMember(staffMember);
+                reservation.setGuestFullName(rs.getString("Guest_Full_Name"));
+                reservation.setGuestAddress(rs.getString("Guest_Address"));
+                reservation.setGuestContactNumber(rs.getString("Guest_Contact_Number"));
+                reservation.setCheckInDate(rs.getDate("Room_Check_In_Date"));
+                reservation.setCheckOutDate(rs.getDate("Room_Check_Out_Date"));
+                reservation.setTotalAmount(rs.getDouble("Total_Amount_Payable"));
+                reservation.setRoom(room);
+
+                list.add(reservation);
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    @Override
+    public Reservation getReservationById(int id) {
+
+        Reservation reservation = null;
+
+        try {
+            Connection conn = DBConnection.getInstance().getConnection();
+
+            String sql =
+                    "SELECT res.*, r.Room_Price FROM reservations res " +
+                    "JOIN rooms r ON res.Room_ID = r.Room_ID " +
+                    "WHERE res.Reservation_ID=?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                StaffMember staffMember = new StaffMember(
+                        rs.getInt("Staff_Member_ID")
+                );
+
+                Room room = new Room(
+                        rs.getInt("Room_ID"),
+                        rs.getDouble("Room_Price")
+                );
+
+                reservation = new Reservation(
+                        rs.getInt("Reservation_ID"),
+                        staffMember,
+                        room,
+                        rs.getString("Guest_Full_Name"),
+                        rs.getString("Guest_Address"),
+                        rs.getString("Guest_Contact_Number"),
+                        rs.getDate("Room_Check_In_Date"),
+                        rs.getDate("Room_Check_Out_Date"),
+                        rs.getDouble("Total_Amount_Payable")
+                );
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return reservation;
+    }
+
+    @Override
+    public boolean updateReservation(Reservation reservation) {
+
+        boolean status = false;
+
+        try{
+            Connection conn = DBConnection.getInstance().getConnection();
+
+            String sql = "UPDATE reservations SET Guest_Full_Name=?, Guest_Address=?, Guest_Contact_Number=?, Room_Check_Out_Date=?, Total_Amount_Payable=? WHERE Reservation_ID=?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, reservation.getGuestFullName());
+            ps.setString(2, reservation.getGuestAddress());
+            ps.setString(3, reservation.getGuestContactNumber());
+            ps.setDate(4, reservation.getCheckOutDate());
+            ps.setDouble(5, reservation.getTotalAmount());
+            ps.setInt(6, reservation.getId());
+
+            status = ps.executeUpdate() > 0;
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return status;
+    }
 }

@@ -191,20 +191,20 @@
 
                     <div class="dashboard-card">
                         <h3>📋 Add Reservations</h3>
-                        <p>Add guest bookings, check them in</p>
-                        <a href="roomListCheckedOut?page=addReservationList">Open Panel</a>
+                        <p>Add guest bookings, check them in.</p>
+                        <a href="roomListCheckedOut?page=addReservationList">Add Reservations</a>
                     </div>
 
                     <div class="dashboard-card">
                         <h3>📋 Edit Checked In Reservations</h3>
                         <p>View, Search and Edit guest bookings, checked in ones.</p>
-                        <a href="reservations.jsp">Open Panel</a>
+                        <a href="reservationCheckedInList">Edit Reservations</a>
                     </div>
 
                     <div class="dashboard-card">
-                        <h3>📋 View All Reservations</h3>
-                        <p>View and Search guest bookings, check-ins, and check-outs.</p>
-                        <a href="reservationList">Open Panel</a>
+                        <h3>📋 View and Check-Out All Reservations</h3>
+                        <p>View and Search guest bookings, check-ins, and check-outs. Check-Out the Reservations Finally.</p>
+                        <a href="reservationList">View/Check-Out Reservations</a>
                     </div>
 
                     <div class="dashboard-card">
@@ -216,7 +216,7 @@
                     <div class="dashboard-card">
                         <h3>👤 Edit My Account</h3>
                         <p>Edit my Account's details.</p>
-                        <a href="staff.jsp">Manage Staff</a>
+                        <a href="staff.jsp">Update My Account</a>
                     </div>
 
                     <div class="dashboard-card">

@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 import java.sql.Date;
 
 @WebServlet("/addReservation")
-public class AddReservation extends HttpServlet {
+public class AddReservationServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

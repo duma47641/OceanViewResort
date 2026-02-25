@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/roomListCheckedOut")
-public class RoomListCheckedOut extends HttpServlet {
+public class RoomListCheckedOutServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

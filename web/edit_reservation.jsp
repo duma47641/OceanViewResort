@@ -20,7 +20,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <title>All Reservations</title>
+    <title>Checked-In Reservation List</title>
 </head>
 
 <script>
@@ -191,7 +191,7 @@
 
             <div class="room-table-list-content">
                 <div class="filter-bar">
-                    <form method="get" action="reservationList" class="filter-form">
+                    <form method="get" action="reservationCheckedInList" class="filter-form">
                         <input type="text"
                                name="search"
                                placeholder="Search anything..."
@@ -211,20 +211,6 @@
                                 }
                             }
                             %>
-                        </select>
-                        <select name="status">
-                            <option value="">All Status</option>
-
-                            <option value="Checked-In"
-                            <%= "Checked-In".equals(request.getParameter("status")) ? "selected" : "" %>>
-                            Checked-In
-                            </option>
-
-                            <option value="Checked-Out"
-                            <%= "Checked-Out".equals(request.getParameter("status")) ? "selected" : "" %>>
-                            Checked-Out
-                            </option>
-
                         </select>
                         <button type="submit">Filter</button>
                     </form>
@@ -256,7 +242,7 @@
                         </thead>
                         <tbody>
                             <%
-                            List<Reservation> list = (List<Reservation>) request.getAttribute("reservationList");
+                            List<Reservation> list = (List<Reservation>) request.getAttribute("reservationCheckedInList");
 
                             if(list != null && !list.isEmpty()){
                                 for(Reservation res : list){
@@ -296,13 +282,9 @@
                             <td><%= res.getTotalAmount() %></td>
 
                             <td>
-                            <% if("Checked-In".equalsIgnoreCase(r.getStatus())){ %>
-                                <a href="deleteReservation?id=<%= res.getId() %>">
-                                    <button class="edit-btn">Check Out</button>
+                                <a href="loadReservationForEdit?id=<%= res.getId() %>">
+                                    <button class="edit-btn">Edit Reservation</button>
                                 </a>
-                            <% } else { %>
-                                <button class="edit-btn" disabled style="opacity:0.5;">Check Out Reservation</button>
-                            <% } %>
                             </td>
                             </tr>
 

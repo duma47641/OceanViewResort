@@ -30,6 +30,11 @@ public class Room {
         this.price = price;
     }
 
+    public Room(int id, double price) {
+        this.id = id;
+        this.price = price;
+    }
+
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

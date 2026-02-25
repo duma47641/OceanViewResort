@@ -15,5 +15,5 @@ public class DAOFactory {
 
     public static StaffMemberDAO getStaffMemberDAO() { return new StaffMemberDAOImpl(); }
 
-    public static ReservationDAO getReservationDAO(){ return new ReservationDAOImpl(); }
+    public static ReservationDAO getReservationDAO() { return new ReservationDAOImpl(); }
 }

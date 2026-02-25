@@ -183,24 +183,20 @@
             </div>
             <div class="register-form-container">
                 <form id="registration" method="post" action="addReservation" onsubmit="return formValidation()">
-                    <h1>ADMIN REGISTRATION</h1>
+                    <h1>ADD ROOM RESERVATION</h1>
                     <!-- hidden ID -->
-                    
                     <input type="hidden" name="roomId" value="<%= ((com.oceanviewresort.Models.Room)request.getAttribute("room")).getId() %>">
                     <div class="input-box">
                         <input style="padding: 14px 14px 14px 14px;" type="text" id="GuestFullNameID" name="GuestFullNameName" required>
                         <label>Guest Full Name</label>
-                        
                     </div>
                     <div class="input-box">
                         <textarea style="padding: 14px 14px 14px 14px;" type="text" id="GuestAddressID" name="GuestAddressName" required></textarea>
                         <label>Guest Address</label>
-                        
                     </div>
                     <div class="input-box">
                         <input style="padding: 14px 14px 14px 14px;" type="text" id="GuestContactNumberID" name="GuestContactNumberName" required>
                         <label>Guest Contact Number</label>
-                        
                     </div>
                     <div class="input-box">
                         <input style="padding: 14px 14px 14px 14px;" type="date" id="RoomCheckInDateID" name="RoomCheckInDateName" required>
@@ -210,12 +206,10 @@
                     <div class="input-box">
                         <input style="padding: 14px 14px 14px 14px;" type="date" id="RoomCheckOutDateID" name="RoomCheckOutDateName" required>
                         <label class="on-top-labels">Room Check Out Date</label>
-                        
                     </div>
                     <div class="input-box">
-                        <input style="padding: 14px 14px 14px 14px;" type="text" id="TotalAmountPayableID" name="TotalAmountPayableName" required>
-                        <label>Total Amount Payable</label>
-                        
+                        <input style="padding: 14px 14px 14px 14px;" type="number" id="TotalAmountPayableID" name="TotalAmountPayableName" required readonly>
+                        <label class="on-top-labels">Total Amount Payable</label>
                     </div>
                     <button class="register-button" style="font-size:24px" type="submit" name="submit">Add Reservation</button>
                 </form>

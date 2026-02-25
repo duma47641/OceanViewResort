@@ -32,6 +32,27 @@ public class Reservation {
         this.totalAmount = totalAmount;
     }
 
+    public Reservation(int id, StaffMember staffMember, Room room, String guestFullName, String guestAddress, String guestContactNumber, Date checkInDate, Date checkOutDate, double totalAmount) {
+        this.id = id;
+        this.staffMember = staffMember;
+        this.room = room;
+        this.guestFullName = guestFullName;
+        this.guestAddress = guestAddress;
+        this.guestContactNumber = guestContactNumber;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.totalAmount = totalAmount;
+    }
+
+    public Reservation(int id, String guestFullName, String guestAddress, String guestContactNumber, Date checkOutDate, double totalAmount) {
+        this.id = id;
+        this.guestFullName = guestFullName;
+        this.guestAddress = guestAddress;
+        this.guestContactNumber = guestContactNumber;
+        this.checkOutDate = checkOutDate;
+        this.totalAmount = totalAmount;
+    }
+
     // getters setters
 
     public int getId(){ return id; }
