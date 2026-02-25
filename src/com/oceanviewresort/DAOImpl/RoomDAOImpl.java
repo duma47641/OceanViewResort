@@ -363,6 +363,7 @@ public class RoomDAOImpl implements RoomDAO {
             ps.setInt(2, roomId);
 
             status = ps.executeUpdate() > 0;
+            conn.commit();
 
         } catch(Exception e){
             e.printStackTrace();
