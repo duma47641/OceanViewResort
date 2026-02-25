@@ -12,4 +12,5 @@ public interface RoomDAO {
     List<Room> searchRooms(String keyword, String typeId);
     boolean updateRoom(Room room);
     List<Room> searchRoomsCheckedOut(String keyword, String typeId);
+    boolean updateRoomToCheckedOut(int roomId);
 }

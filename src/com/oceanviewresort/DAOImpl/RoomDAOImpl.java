@@ -346,4 +346,28 @@ public class RoomDAOImpl implements RoomDAO {
 
         return list;
     }
+
+    @Override
+    public boolean updateRoomToCheckedOut(int roomId) {
+
+        boolean status = false;
+
+        try {
+            Connection conn = DBConnection.getInstance().getConnection();
+
+            String sql = "UPDATE rooms SET Room_Status = ? WHERE Room_ID = ?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, "Checked-Out");
+            ps.setInt(2, roomId);
+
+            status = ps.executeUpdate() > 0;
+
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return status;
+    }
 }

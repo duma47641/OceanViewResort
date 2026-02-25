@@ -8,4 +8,9 @@ public interface StaffMemberDAO {
 
     boolean register(StaffMember admin);
 
+    StaffMember getStaffMemberById(int Id);
+
+    boolean updateStaffMember(StaffMember staffMember);
+
+    boolean isStaffMemberEmailExists(String email);
 }

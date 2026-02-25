@@ -468,12 +468,13 @@ menu {
 
 .room-table-list-content{
     width:100%;
-    max-width:1000px;
     margin:40px auto;
     display:flex;
     flex-direction:column;
     align-items:center;
     gap:20px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 /* SEARCH BAR */

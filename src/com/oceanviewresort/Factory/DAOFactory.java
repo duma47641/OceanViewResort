@@ -7,9 +7,7 @@ public class DAOFactory {
 
     public static RoomTypeDAO getRoomTypeDAO() { return new RoomTypeDAOImpl(); }
 
-    public static RoomDAO getRoomDAO() {
-        return new RoomDAOImpl();
-    }
+    public static RoomDAO getRoomDAO() { return new RoomDAOImpl(); }
 
     public static AdminDAO getAdminDAO() { return new AdminDAOImpl(); }
 

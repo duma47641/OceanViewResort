@@ -112,7 +112,7 @@
         <div class="menu-container">
             <ul class="menu-list">
                 <li class="menu-list-item"><menu><a class="link-stylings" href="home.jsp">Home</a></menu></li>
-                <li class="menu-list-item"><menu><a class="link-stylings" href="Rooms.jsp">Rooms</a></menu></li>
+                <li class="menu-list-item"><menu><a class="link-stylings" href="rooms.jsp">Rooms</a></menu></li>
                 <li class="menu-list-item"><menu class="mobile-dropdown">Room Types <i style="margin-left: 5px;" class="fas fa-caret-down"></i></menu>
                     <ul class="submenu">
                         <%@ page import="java.util.List" %>
