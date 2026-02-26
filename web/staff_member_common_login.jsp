@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="Home_Style.css">
     <link rel="stylesheet" href="Register.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <title>Staff Member Common Login</title>
@@ -105,7 +106,7 @@
         <div class="menu-container">
             <ul class="menu-list">
                 <li class="menu-list-item"><menu><a class="link-stylings" href="home.jsp">Home</a></menu></li>
-                <li class="menu-list-item"><menu><a class="link-stylings" href="rooms.jsp">Rooms</a></menu></li>
+                <li class="menu-list-item"><menu><a class="link-stylings" href="roomList?page=viewRoomsAndSearch">Rooms</a></menu></li>
                 <li class="menu-list-item"><menu class="mobile-dropdown">Room Types <i style="margin-left: 5px;" class="fas fa-caret-down"></i></menu>
                     <ul class="submenu">
                         <%@ page import="java.util.List" %>
@@ -116,7 +117,7 @@
                                 for(RoomType room : roomTypes){
                         %>
                                 <li>
-                                    <a class="link-styling" href="#"><%= room.getName() %></a>
+                                    <a class="link-styling" href="roomList?page=viewRoomsAndSearch&type=<%= room.getId() %>"><%= room.getName() %></a>
                                 </li>
                         <%
                                 }
@@ -131,8 +132,9 @@
 
                 <li class="menu-list-item-last"><menu><a class="link-stylings" href="Register.php">Parking</a></menu></li>
 
-                <form action="Rooms_Searching.php" method="get" class="menu-list-item-search-bar-main">
-                    <menu><input type="text" name="search" class="menu-list-item-search-bar" placeholder="Search"></menu>
+                <form action="roomList" method="get" class="menu-list-item-search-bar-main">
+                    <input type="hidden" name="page" value="viewRoomsAndSearch">
+                    <menu><input type="text" name="search" class="menu-list-item-search-bar" placeholder="Search" value="<%= request.getParameter("search") != null ? request.getParameter("search") : "" %>"></menu>
                     <menu><button type="submit" class="search-menu-icon-button"><i class="search-menu-icon fas fa-search"></i></button></menu>
                 </form>
 
@@ -212,7 +214,7 @@
 
         </div>
         <div class="footer-bottom">
-            © <%= java.time.Year.now() %> Cineplex Theatres. All Rights Reserved.
+            © <%= java.time.Year.now() %> OCEAN VIEW RESORT. All Rights Reserved.
         </div>
     </div>
 

@@ -46,6 +46,10 @@ public class RoomListServlet extends HttpServlet {
                 request.getRequestDispatcher("view_room.jsp").forward(request,response);
                 break;
 
+            case "viewRoomsAndSearch":
+                request.getRequestDispatcher("rooms.jsp").forward(request,response);
+                break;
+
             default:
                 request.getRequestDispatcher("edit_room.jsp").forward(request,response);
         }

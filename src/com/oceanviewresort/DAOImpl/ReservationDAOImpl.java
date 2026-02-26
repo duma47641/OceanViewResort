@@ -78,7 +78,8 @@ public class ReservationDAOImpl implements ReservationDAO {
                     "FROM reservations res " +
                     "INNER JOIN rooms r ON res.Room_ID = r.Room_ID " +
                     "INNER JOIN room_types rt ON r.Room_Type_ID = rt.Room_Type_ID " +
-                    "WHERE 1=1 ";
+                    "WHERE 1=1 " +
+                    "ORDER BY res.Reservation_ID ASC";
 
             // ---------- KEYWORD SEARCH ----------
             if (keyword != null && !keyword.trim().isEmpty()) {

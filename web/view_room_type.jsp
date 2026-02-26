@@ -103,7 +103,7 @@
         <div class="menu-container">
             <ul class="menu-list">
                 <li class="menu-list-item"><menu><a class="link-stylings" href="home.jsp">Home</a></menu></li>
-                <li class="menu-list-item"><menu><a class="link-stylings" href="rooms.jsp">Rooms</a></menu></li>
+                <li class="menu-list-item"><menu><a class="link-stylings" href="roomList?page=viewRoomsAndSearch">Rooms</a></menu></li>
                 <li class="menu-list-item"><menu class="mobile-dropdown">Room Types <i style="margin-left: 5px;" class="fas fa-caret-down"></i></menu>
                     <ul class="submenu">
                         <%@ page import="java.util.List" %>
@@ -114,7 +114,7 @@
                                 for(RoomType room : roomTypes){
                         %>
                                 <li>
-                                    <a class="link-styling" href="#"><%= room.getName() %></a>
+                                    <a class="link-styling" href="roomList?page=viewRoomsAndSearch&type=<%= room.getId() %>"><%= room.getName() %></a>
                                 </li>
                         <%
                                 }
@@ -136,8 +136,9 @@
                     <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutAdmin" onclick="return confirmLogout()">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
                 <% } %>
 
-                <form action="Rooms_Searching.php" method="get" class="menu-list-item-search-bar-main">
-                    <menu><input type="text" name="search" class="menu-list-item-search-bar" placeholder="Search"></menu>
+                <form action="roomList" method="get" class="menu-list-item-search-bar-main">
+                    <input type="hidden" name="page" value="viewRoomsAndSearch">
+                    <menu><input type="text" name="search" class="menu-list-item-search-bar" placeholder="Search" value="<%= request.getParameter("search") != null ? request.getParameter("search") : "" %>"></menu>
                     <menu><button type="submit" class="search-menu-icon-button"><i class="search-menu-icon fas fa-search"></i></button></menu>
                 </form>
 
@@ -265,7 +266,7 @@
 
         </div>
         <div class="footer-bottom">
-            © <%= java.time.Year.now() %> Cineplex Theatres. All Rights Reserved.
+            © <%= java.time.Year.now() %> OCEAN VIEW RESORT. All Rights Reserved.
         </div>
     </div>
 
