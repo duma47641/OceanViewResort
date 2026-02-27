@@ -130,8 +130,6 @@
 
                 <li class="menu-list-item"><menu><a class="link-stylings" href="about_us.jsp">About Us</a></menu></li>
 
-                <li class="menu-list-item-last"><menu><a class="link-stylings" href="Register.php">Parking</a></menu></li>
-
                 <form action="roomList" method="get" class="menu-list-item-search-bar-main">
                     <input type="hidden" name="page" value="viewRoomsAndSearch">
                     <menu><input type="text" name="search" class="menu-list-item-search-bar" placeholder="Search" value="<%= request.getParameter("search") != null ? request.getParameter("search") : "" %>"></menu>

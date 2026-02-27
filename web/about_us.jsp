@@ -1,7 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.sql.*" %>
-<%
-    com.oceanviewresort.Models.StaffMember staffMember = (com.oceanviewresort.Models.StaffMember) session.getAttribute("staffMember");
-%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -11,12 +9,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Home_Style.css">
-    <link rel="stylesheet" href="Register.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <title>Login Staff Member</title>
+    <title>Home</title>
 </head>
 
 <script>
@@ -87,20 +84,6 @@
     });
 </script>
 
-<script>
-    function togglePasswordVisibility(fieldId, icon) {
-        const input = document.getElementById(fieldId);
-
-        if (input.type === "password") {
-            input.type = "text";
-            icon.className = "bx bx-hide toggle-password";
-        } else {
-            input.type = "password";
-            icon.className = "bx bx-show toggle-password";
-        }
-    }
-</script>
-
 <body>
     <div class="navbar">
         <div class="logo-container">
@@ -160,24 +143,48 @@
                 <img class="featured-title-image" src="img/Ocean_View_Resort_Logo.png" alt="">
                 <p class="featured-desc">Welcome to Ocean View Resort, your perfect escape to relaxation and luxury by the sea! Experience tranquility like never before with our beautifully designed rooms, breathtaking ocean views, and world-class hospitality. Whether you are seeking a peaceful getaway or a memorable vacation, Ocean View Resort offers the ideal setting to unwind, refresh, and indulge in comfort.</p>
             </div>
-            <div class="register-form-container">
-                <form id="registration" method="post" action="staffMemberLogin" onsubmit="return formValidation()">
-                    <h1>STAFF MEMBER LOGIN</h1>
-                    <div class="input-box">
-                        <input style="padding: 14px 40px 14px 14px;" type="Email" id="Email" name="Email" required>
-                        <label>Email</label>
-                        <div class="icons-container"><i class='bx bxs-envelope'></i></div>
-                    </div>
-                    <div class="input-box">
-                        <div class="icons-container">
-                            <i class="bx bx-show toggle-password" onclick="togglePasswordVisibility('password', this)"></i>
+
+            <h1 class="home-heading">ABOUT US</h1>
+
+            <div class="about-us-content">
+                <div class="about-container">
+                    <h1 class="about-title">About Ocean View Resort</h1>
+                    <p class="about-description">
+                        Welcome to <strong>Ocean View Resort</strong>, your perfect destination for relaxation,
+                        luxury, and unforgettable coastal experiences. Nestled beside breathtaking ocean scenery,
+                        our resort is designed to offer peace, comfort, and world-class hospitality for travelers,
+                        families, and vacation seekers alike.
+                    </p>
+                    <div class="about-grid">
+                        <div class="about-card">
+                            <h2>🌅 Our Vision</h2>
+                            <p>
+                                To become the most trusted and admired seaside resort known for exceptional service,
+                                unforgettable guest experiences, and a peaceful atmosphere that inspires relaxation
+                                and happiness.
+                            </p>
                         </div>
-                        <input style="padding: 14px 40px 14px 14px;" type="password" name="Password" id="password" required>
-                        <label>Password</label>
+                        <div class="about-card">
+                            <h2>🎯 Our Mission</h2>
+                            <p>
+                                We strive to deliver outstanding hospitality, comfortable stays, and personalized
+                                service while maintaining the highest standards of quality, cleanliness, and care
+                                for every guest who visits us.
+                            </p>
+                        </div>
+                        <div class="about-card">
+                            <h2>💎 Our Values</h2>
+                            <p>
+                                Hospitality, integrity, excellence, comfort, and customer satisfaction are the
+                                core values that guide everything we do. We believe every guest deserves a memorable
+                                and relaxing stay.
+                            </p>
+                        </div>
                     </div>
-                    <button class="register-button" style="font-size:24px" type="submit" name="submit">Login Staff Member</button>
-                </form>
+                </div>
             </div>
+
+
         </div>
     </div>
 
@@ -218,24 +225,6 @@
             © <%= java.time.Year.now() %> OCEAN VIEW RESORT. All Rights Reserved.
         </div>
     </div>
-
-    <script>
-        function formValidation() {
-        const name = document.getElementById("FullName").value;
-        const password = document.getElementById("password").value;
-        const confirm = document.getElementById("confirm_Password").value;
-        const nameRegex = /^[A-Za-z ]+$/;
-        if (!nameRegex.test(name)) {
-            alert("Full name must contain letters only.");
-            return false;
-        }
-        if (password !== confirm) {
-            alert("Passwords do not match!");
-            return false;
-        }
-        return true;
-    }
-    </script>
 
 </body>
 </html>

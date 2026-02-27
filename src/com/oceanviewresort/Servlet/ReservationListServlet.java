@@ -5,6 +5,7 @@ import com.oceanviewresort.DAO.RoomDAO;
 import com.oceanviewresort.DAO.RoomTypeDAO;
 import com.oceanviewresort.Factory.DAOFactory;
 import com.oceanviewresort.Models.Reservation;
+import com.oceanviewresort.Models.ReservationStats;
 import com.oceanviewresort.Models.Room;
 import com.oceanviewresort.Models.RoomType;
 
@@ -31,6 +32,9 @@ public class ReservationListServlet extends HttpServlet {
         RoomDAO roomDAO = DAOFactory.getRoomDAO();
         RoomTypeDAO typeDAO = DAOFactory.getRoomTypeDAO();
 
+        ReservationStats stats = reservationDAO.getReservationStats();
+        request.setAttribute("stats", stats);
+
         List<Reservation> reservations = reservationDAO.searchAllReservations(keyword, typeId, roomId, status);
         List<Room> rooms = roomDAO.searchRooms(keyword, typeId);
         List<RoomType> types = typeDAO.getAllRoomTypes();
@@ -51,6 +55,10 @@ public class ReservationListServlet extends HttpServlet {
 
             case "printReservationStaffMember":
                 request.getRequestDispatcher("all_print_reservation_list.jsp").forward(request,response);
+                break;
+
+            case "viewIncomeReport":
+                request.getRequestDispatcher("view_income_report.jsp").forward(request,response);
                 break;
 
             default:

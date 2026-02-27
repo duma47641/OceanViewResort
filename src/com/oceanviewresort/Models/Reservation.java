@@ -13,6 +13,7 @@ public class Reservation {
     private Date checkInDate;
     private Date checkOutDate;
     private double totalAmount;
+    private String status;
 
     public Reservation(){}
 
@@ -32,7 +33,7 @@ public class Reservation {
         this.totalAmount = totalAmount;
     }
 
-    public Reservation(int id, StaffMember staffMember, Room room, String guestFullName, String guestAddress, String guestContactNumber, Date checkInDate, Date checkOutDate, double totalAmount) {
+    public Reservation(int id, StaffMember staffMember, Room room, String guestFullName, String guestAddress, String guestContactNumber, Date checkInDate, Date checkOutDate, double totalAmount, String status) {
         this.id = id;
         this.staffMember = staffMember;
         this.room = room;
@@ -42,6 +43,7 @@ public class Reservation {
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.totalAmount = totalAmount;
+        this.status = status;
     }
 
     public Reservation(int id, String guestFullName, String guestAddress, String guestContactNumber, Date checkOutDate, double totalAmount) {
@@ -81,4 +83,7 @@ public class Reservation {
 
     public double getTotalAmount(){ return totalAmount; }
     public void setTotalAmount(double totalAmount){ this.totalAmount = totalAmount; }
+
+    public String getStatus(){ return status; }
+    public void setStatus(String status){ this.status = status; }
 }

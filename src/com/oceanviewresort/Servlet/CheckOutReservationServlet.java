@@ -1,5 +1,6 @@
 package com.oceanviewresort.Servlet;
 
+import com.oceanviewresort.DAO.ReservationDAO;
 import com.oceanviewresort.DAO.RoomDAO;
 import com.oceanviewresort.Factory.DAOFactory;
 
@@ -19,14 +20,16 @@ public class CheckOutReservationServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
 
+        int reservationId = Integer.parseInt(request.getParameter("reservationId"));
         int roomId = Integer.parseInt(request.getParameter("roomId"));
 
-        RoomDAO dao = DAOFactory.getRoomDAO();
+        ReservationDAO reservationDAO = DAOFactory.getReservationDAO();
+        RoomDAO roomDAO = DAOFactory.getRoomDAO();
 
-        boolean updated = dao.updateRoomToCheckedOut(roomId);
+        boolean updated = reservationDAO.updateReservationToCheckedOut(reservationId) && roomDAO.updateRoomToCheckedOut(roomId);
 
         if(updated){
-            out.println("<script>alert('Reservation Room Status Checked-Out Successfully!'); location='staff_member_dashboard.jsp';</script>");
+            out.println("<script>alert('Reservation and Room Status Checked-Out Successfully!'); location='staff_member_dashboard.jsp';</script>");
         }else{
             response.getWriter().println("<script>alert('Check-out failed!'); history.back();</script>");
         }

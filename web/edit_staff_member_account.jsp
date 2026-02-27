@@ -139,11 +139,9 @@
 
                 <li class="menu-list-item"><menu><a class="link-stylings" href="about_us.jsp">About Us</a></menu></li>
 
-                <li class="menu-list-item-last"><menu><a class="link-stylings" href="Register.php">Parking</a></menu></li>
-
                 <% if(staffMember == null){ %>
-                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="Parking_Area_View.html">Register</a></menu></li>
-                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="Login.php">Login</a></menu></li>
+                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="admin_common_login.jsp">Admin Common Login</a></menu></li>
+                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="staff_member_common_login.jsp">Staff Member Common Login</a></menu></li>
                 <% } else { %>
                     <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutStaffMember" onclick="return confirmLogout()">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
                 <% } %>
@@ -163,13 +161,13 @@
         <% if(staffMember == null){ %>
 
             <div class="menu-item">
-                <a href="Register.php"><i class="left-menu-icon fas fa-users"></i></a>
-                <span class="submenusidebar">Register</span>
+                <a href="admin_common_login.jsp"><i class="left-menu-icon material-icons">&#xe8d3;</i></a>
+                <span class="submenusidebar">Admin Common Login</span>
             </div>
 
             <div class="menu-item">
-                <a href="Login.php"><i class="left-menu-icon fas fa-user"></i></a>
-                <span class="submenusidebar">Login</span>
+                <a href="staff_member_common_login.jsp"><i class="left-menu-icon fas fa-user"></i></a>
+                <span class="submenusidebar">Staff Member Common Login</span>
             </div>
 
         <% } else { %>

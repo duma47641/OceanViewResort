@@ -127,8 +127,8 @@
                 <li class="menu-list-item-last"><menu><a class="link-stylings" href="Register.php">Parking</a></menu></li>
 
                 <% if(admin == null){ %>
-                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="Parking_Area_View.html">Register</a></menu></li>
-                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="Login.php">Login</a></menu></li>
+                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="admin_register.jsp">Register</a></menu></li>
+                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="admin_login.jsp">Login</a></menu></li>
                 <% } else { %>
                     <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutAdmin" onclick="return confirmLogout()">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
                 <% } %>
@@ -148,12 +148,12 @@
         <% if(admin == null){ %>
 
             <div class="menu-item">
-                <a href="Register.php"><i class="left-menu-icon fas fa-users"></i></a>
+                <a href="admin_register.jsp"><i class="left-menu-icon fas fa-users"></i></a>
                 <span class="submenusidebar">Register</span>
             </div>
 
             <div class="menu-item">
-                <a href="Login.php"><i class="left-menu-icon fas fa-user"></i></a>
+                <a href="admin_login.jsp"><i class="left-menu-icon fas fa-user"></i></a>
                 <span class="submenusidebar">Login</span>
             </div>
 

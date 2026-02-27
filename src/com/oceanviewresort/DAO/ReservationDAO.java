@@ -1,6 +1,7 @@
 package com.oceanviewresort.DAO;
 
 import com.oceanviewresort.Models.Reservation;
+import com.oceanviewresort.Models.ReservationStats;
 
 import java.util.List;
 
@@ -10,4 +11,6 @@ public interface ReservationDAO {
     List<Reservation> searchAllCheckedInReservations(String keyword, String typeId, String roomId);
     Reservation getReservationById(int id);
     boolean updateReservation(Reservation reservation);
+    boolean updateReservationToCheckedOut(int roomId);
+    ReservationStats getReservationStats();
 }

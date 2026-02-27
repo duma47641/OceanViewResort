@@ -2,10 +2,7 @@ package com.oceanviewresort.DAOImpl;
 
 import com.oceanviewresort.DAO.ReservationDAO;
 import com.oceanviewresort.DatabasePackage.DBConnection;
-import com.oceanviewresort.Models.Reservation;
-import com.oceanviewresort.Models.Room;
-import com.oceanviewresort.Models.RoomType;
-import com.oceanviewresort.Models.StaffMember;
+import com.oceanviewresort.Models.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -78,8 +75,7 @@ public class ReservationDAOImpl implements ReservationDAO {
                     "FROM reservations res " +
                     "INNER JOIN rooms r ON res.Room_ID = r.Room_ID " +
                     "INNER JOIN room_types rt ON r.Room_Type_ID = rt.Room_Type_ID " +
-                    "WHERE 1=1 " +
-                    "ORDER BY res.Reservation_ID ASC";
+                    "WHERE 1=1 ";
 
             // ---------- KEYWORD SEARCH ----------
             if (keyword != null && !keyword.trim().isEmpty()) {
@@ -92,6 +88,7 @@ public class ReservationDAOImpl implements ReservationDAO {
                         "CAST(res.Room_Check_In_Date AS CHAR) LIKE ? OR " +
                         "CAST(res.Room_Check_Out_Date AS CHAR) LIKE ? OR " +
                         "CAST(res.Total_Amount_Payable AS CHAR) LIKE ? OR " +
+                        "res.Reservation_Status LIKE ? OR " +
 
                         "CAST(r.Room_ID AS CHAR) LIKE ? OR " +
                         "r.Room_Name LIKE ? OR " +
@@ -117,6 +114,8 @@ public class ReservationDAOImpl implements ReservationDAO {
             if (status != null && !status.isEmpty()) {
                 sql += " AND r.Room_Status = ? ";
             }
+
+            sql += " ORDER BY res.Reservation_ID ASC";
 
             PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -175,6 +174,7 @@ public class ReservationDAOImpl implements ReservationDAO {
                 reservation.setCheckInDate(rs.getDate("Room_Check_In_Date"));
                 reservation.setCheckOutDate(rs.getDate("Room_Check_Out_Date"));
                 reservation.setTotalAmount(rs.getDouble("Total_Amount_Payable"));
+                reservation.setStatus(rs.getString("Reservation_Status"));
                 reservation.setRoom(room);
 
                 list.add(reservation);
@@ -199,7 +199,7 @@ public class ReservationDAOImpl implements ReservationDAO {
                     "FROM reservations res " +
                     "INNER JOIN rooms r ON res.Room_ID = r.Room_ID " +
                     "INNER JOIN room_types rt ON r.Room_Type_ID = rt.Room_Type_ID " +
-                    "WHERE 1=1 AND r.Room_Status='Checked-In'";
+                    "WHERE 1=1 AND res.Reservation_Status='Checked-In' AND r.Room_Status='Checked-In'";
 
             // ---------- KEYWORD SEARCH ----------
             if (keyword != null && !keyword.trim().isEmpty()) {
@@ -212,6 +212,7 @@ public class ReservationDAOImpl implements ReservationDAO {
                         "CAST(res.Room_Check_In_Date AS CHAR) LIKE ? OR " +
                         "CAST(res.Room_Check_Out_Date AS CHAR) LIKE ? OR " +
                         "CAST(res.Total_Amount_Payable AS CHAR) LIKE ? OR " +
+                        "res.Reservation_Status LIKE ? OR " +
 
                         "CAST(r.Room_ID AS CHAR) LIKE ? OR " +
                         "r.Room_Name LIKE ? OR " +
@@ -287,6 +288,7 @@ public class ReservationDAOImpl implements ReservationDAO {
                 reservation.setCheckInDate(rs.getDate("Room_Check_In_Date"));
                 reservation.setCheckOutDate(rs.getDate("Room_Check_Out_Date"));
                 reservation.setTotalAmount(rs.getDouble("Total_Amount_Payable"));
+                reservation.setStatus(rs.getString("Reservation_Status"));
                 reservation.setRoom(room);
 
                 list.add(reservation);
@@ -343,7 +345,8 @@ public class ReservationDAOImpl implements ReservationDAO {
                         rs.getString("Guest_Contact_Number"),
                         rs.getDate("Room_Check_In_Date"),
                         rs.getDate("Room_Check_Out_Date"),
-                        rs.getDouble("Total_Amount_Payable"));
+                        rs.getDouble("Total_Amount_Payable"),
+                        rs.getString("Reservation_Status"));
             }
 
         } catch (Exception e) {
@@ -379,5 +382,69 @@ public class ReservationDAOImpl implements ReservationDAO {
         }
 
         return status;
+    }
+
+    @Override
+    public boolean updateReservationToCheckedOut(int reservationId) {
+
+        boolean status = false;
+
+        try {
+            Connection conn = DBConnection.getInstance().getConnection();
+
+            String sql = "UPDATE reservations SET Reservation_Status = ? WHERE Reservation_ID = ?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, "Checked-Out");
+            ps.setInt(2, reservationId);
+
+            status = ps.executeUpdate() > 0;
+            conn.commit();
+
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return status;
+    }
+
+    @Override
+    public ReservationStats getReservationStats() {
+
+        ReservationStats stats = null;
+
+        try {
+            Connection conn = DBConnection.getInstance().getConnection();
+
+            String sql =
+                    "SELECT " +
+                            "COUNT(*) AS totalReservations, " +
+                            "SUM(Total_Amount_Payable) AS totalRevenue, " +
+                            "AVG(Total_Amount_Payable) AS avgValue, " +
+
+                            "SUM(CASE WHEN Reservation_Status='Checked-In' THEN 1 ELSE 0 END) AS checkedIn, " +
+                            "SUM(CASE WHEN Reservation_Status='Checked-Out' THEN 1 ELSE 0 END) AS checkedOut " +
+
+                            "FROM reservations";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()){
+                stats = new ReservationStats(
+                        rs.getDouble("totalRevenue"),
+                        rs.getInt("totalReservations"),
+                        rs.getInt("checkedIn"),
+                        rs.getInt("checkedOut"),
+                        rs.getDouble("avgValue")
+                );
+            }
+
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return stats;
     }
 }

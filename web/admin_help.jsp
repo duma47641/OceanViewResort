@@ -1,6 +1,8 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <%@ page import="java.sql.*" %>
 <%
-    com.oceanviewresort.Models.StaffMember staffMember = (com.oceanviewresort.Models.StaffMember) session.getAttribute("staffMember");
+    com.oceanviewresort.Models.Admin admin = (com.oceanviewresort.Models.Admin) session.getAttribute("admin");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -11,12 +13,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Home_Style.css">
-    <link rel="stylesheet" href="Register.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <title>Login Staff Member</title>
+    <title>Staff Member Dashboard</title>
 </head>
 
 <script>
@@ -133,6 +133,13 @@
 
                 <li class="menu-list-item"><menu><a class="link-stylings" href="about_us.jsp">About Us</a></menu></li>
 
+                <% if(admin == null){ %>
+                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="admin_register.jsp">Register</a></menu></li>
+                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="admin_login.jsp">Login</a></menu></li>
+                <% } else { %>
+                    <li class="menu-list-item-last"><menu><a class="link-stylings" href="logoutAdmin" onclick="return confirmLogout()">Logout <i style="margin-left: 5px;" class="fas fa-sign-out-alt"></i></a></menu></li>
+                <% } %>
+
                 <form action="roomList" method="get" class="menu-list-item-search-bar-main">
                     <input type="hidden" name="page" value="viewRoomsAndSearch">
                     <menu><input type="text" name="search" class="menu-list-item-search-bar" placeholder="Search" value="<%= request.getParameter("search") != null ? request.getParameter("search") : "" %>"></menu>
@@ -144,14 +151,28 @@
     </div>
 
     <div class="sidebar">
+
+        <% if(admin == null){ %>
+
             <div class="menu-item">
-                <a href="admin_common_login.jsp"><i class="left-menu-icon material-icons">&#xe8d3;</i></a>
-                <span class="submenusidebar">Admin Common Login</span>
+                <a href="admin_register.jsp"><i class="left-menu-icon fas fa-users"></i></a>
+                <span class="submenusidebar">Register</span>
             </div>
+
             <div class="menu-item">
-                <a href="staff_member_common_login.jsp"><i class="left-menu-icon fas fa-user"></i></a>
-                <span class="submenusidebar">Staff Member Common Login</span>
+                <a href="admin_login.jsp"><i class="left-menu-icon fas fa-user"></i></a>
+                <span class="submenusidebar">Login</span>
             </div>
+
+        <% } else { %>
+
+            <div class="menu-item">
+                <a href="logoutAdmin" onclick="return confirmLogout()"><i class="left-menu-icon fas fa-sign-out-alt"></i></a>
+                <span class="submenusidebar">Logout</span>
+            </div>
+
+        <% } %>
+
     </div>
 
     <div class="container">
@@ -160,24 +181,68 @@
                 <img class="featured-title-image" src="img/Ocean_View_Resort_Logo.png" alt="">
                 <p class="featured-desc">Welcome to Ocean View Resort, your perfect escape to relaxation and luxury by the sea! Experience tranquility like never before with our beautifully designed rooms, breathtaking ocean views, and world-class hospitality. Whether you are seeking a peaceful getaway or a memorable vacation, Ocean View Resort offers the ideal setting to unwind, refresh, and indulge in comfort.</p>
             </div>
-            <div class="register-form-container">
-                <form id="registration" method="post" action="staffMemberLogin" onsubmit="return formValidation()">
-                    <h1>STAFF MEMBER LOGIN</h1>
-                    <div class="input-box">
-                        <input style="padding: 14px 40px 14px 14px;" type="Email" id="Email" name="Email" required>
-                        <label>Email</label>
-                        <div class="icons-container"><i class='bx bxs-envelope'></i></div>
-                    </div>
-                    <div class="input-box">
-                        <div class="icons-container">
-                            <i class="bx bx-show toggle-password" onclick="togglePasswordVisibility('password', this)"></i>
+
+            <h1 class="home-heading">ADMINISTRATOR HELP</h1>
+
+            <div class="staff-member-help-content">
+                <div class="help-container">
+
+                    <h1 class="help-title">Admin Help Guide</h1>
+                    <p class="help-subtitle">Quick instructions for using the reservation system</p>
+
+                    <div class="help-grid">
+
+                        <div class="help-card">
+                            <h3>Add Room Types</h3>
+                            <p>Add Room Types with their Room Type Names such as Deluxe, Twin etc.</p>
                         </div>
-                        <input style="padding: 14px 40px 14px 14px;" type="password" name="Password" id="password" required>
-                        <label>Password</label>
+
+                        <div class="help-card">
+                            <h3>Edit Room Types</h3>
+                            <p>Edit the Room Types by selecting a particular Room Type from the Room Type list shown in the page.</p>
+                        </div>
+
+                        <div class="help-card">
+                            <h3>View Room Types</h3>
+                            <p>View the added Room Types and examine them.</p>
+                        </div>
+
+                        <div class="help-card">
+                            <h3>Add Rooms</h3>
+                            <p>Add Rooms with their Room Types and their room details, prices and all.</p>
+                        </div>
+
+                        <div class="help-card">
+                            <h3>Edit Rooms</h3>
+                            <p>Edit the Rooms by selecting a particular Room from the Room list shown in the page.</p>
+                        </div>
+
+                        <div class="help-card">
+                            <h3>View Rooms</h3>
+                            <p>View the added Rooms and examine them.</p>
+                        </div>
+
+                        <div class="help-card">
+                            <h3>Create Staff Member Accounts</h3>
+                            <p>Create essential Staff Members to handle the bulk amount of reservations and manage them.</p>
+                        </div>
+
+                        <div class="help-card">
+                            <h3>Account Settings</h3>
+                            <p>Edit your profile details such as name, password, or contact info.</p>
+                        </div>
+
+                        <div class="help-card">
+                            <h3>Need Support?</h3>
+                            <p>Yeah so, you are in the help section and we hope it helped you.</p>
+                        </div>
+
                     </div>
-                    <button class="register-button" style="font-size:24px" type="submit" name="submit">Login Staff Member</button>
-                </form>
+
+                </div>
             </div>
+
+
         </div>
     </div>
 
@@ -218,24 +283,6 @@
             © <%= java.time.Year.now() %> OCEAN VIEW RESORT. All Rights Reserved.
         </div>
     </div>
-
-    <script>
-        function formValidation() {
-        const name = document.getElementById("FullName").value;
-        const password = document.getElementById("password").value;
-        const confirm = document.getElementById("confirm_Password").value;
-        const nameRegex = /^[A-Za-z ]+$/;
-        if (!nameRegex.test(name)) {
-            alert("Full name must contain letters only.");
-            return false;
-        }
-        if (password !== confirm) {
-            alert("Passwords do not match!");
-            return false;
-        }
-        return true;
-    }
-    </script>
 
 </body>
 </html>
